@@ -18,8 +18,7 @@ from selenium.common.exceptions import TimeoutException
 # =====================================
 # 0. 기본 설정
 # =====================================
-NAVER_MAP_URL = "리뷰 링크"
-
+NAVER_MAP_URL = "https://map.naver.com/p/search/%EA%B8%B0%EA%BE%B8%EC%8A%A4%EC%8B%9C/place/1118442855?c=15.00,0,0,0,dh&placePath=/review&from=map&fromPanelNum=2&locale=ko&searchText=%EA%B8%B0%EA%BE%B8%EC%8A%A4%EC%8B%9C&svcName=map_pcv5&timestamp=202604101701&entry=bmp"
 START_DATE = datetime(2025, 1, 1)
 
 SLEEP = 1.2
@@ -85,7 +84,7 @@ def extract_visit_date_from_text(text):
     return ""
 
 
-# def is_valid_date(date_str):
+def is_valid_date(date_str):
     try:
         date_obj = datetime.strptime(date_str, "%Y.%m.%d")
         return date_obj >= START_DATE

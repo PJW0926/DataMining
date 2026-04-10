@@ -18,7 +18,8 @@ from selenium.common.exceptions import TimeoutException
 # =====================================
 # 0. 기본 설정
 # =====================================
-NAVER_MAP_URL = "https://map.naver.com/p/search/%EA%B8%B0%EA%BE%B8%EC%8A%A4%EC%8B%9C/place/1118442855?c=15.00,0,0,0,dh&placePath=/review?bk_query=%EA%B8%B0%EA%BE%B8%EC%8A%A4%EC%8B%9C&entry=bmp&fromPanelNum=2&locale=ko&searchText=%EA%B8%B0%EA%BE%B8%EC%8A%A4%EC%8B%9C&svcName=map_pcv5&timestamp=202604101120&entry=bmp&fromPanelNum=2&timestamp=202604101120&locale=ko&svcName=map_pcv5&searchText=%EA%B8%B0%EA%BE%B8%EC%8A%A4%EC%8B%9C&from=map"
+NAVER_MAP_URL = "https://map.naver.com/p/entry/place/1652144509?c=15.00,0,0,0,dh&placePath=/review?additionalHeight=76&fromPanelNum=1&locale=ko&svcName=map_pcv5&timestamp=202604101720&fromPanelNum=1&additionalHeight=76&timestamp=202604101720&locale=ko&svcName=map_pcv5"
+
 START_DATE = datetime(2025, 1, 1)
 
 SLEEP = 1.2
