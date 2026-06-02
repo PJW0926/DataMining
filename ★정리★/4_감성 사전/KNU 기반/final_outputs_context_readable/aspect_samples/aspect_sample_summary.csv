@@ -1,0 +1,5 @@
+﻿aspect,aspect_kr,matched_review_count,sample_count,output_file
+food,음식,6180,1000,final_outputs_context_readable\aspect_samples\food_sample_reviews.csv
+service,서비스,2409,1000,final_outputs_context_readable\aspect_samples\service_sample_reviews.csv
+price,가격,1657,1000,final_outputs_context_readable\aspect_samples\price_sample_reviews.csv
+atmosphere,분위기,1936,1000,final_outputs_context_readable\aspect_samples\atmosphere_sample_reviews.csv

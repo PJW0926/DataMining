@@ -1,0 +1,704 @@
+# =========================================================
+# 목적:
+# - 이 단계에서는 true/authenticity/trust score를 매기지 않음
+# - 두 식당의 리뷰 상태를 비교해서, 리뷰이벤트 식당에서 유독 드러나는 패턴을 찾음
+# - 이후 진정성 필터의 feature/가중치 후보로 활용
+# =========================================================
+
+import os
+import re
+from collections import Counter
+
+import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+
+# 워드클라우드는 설치되어 있으면 사용, 없으면 bar chart만 생성
+try:
+    from wordcloud import WordCloud
+    WORDCLOUD_AVAILABLE = True
+except ImportError:
+    WORDCLOUD_AVAILABLE = False
+
+# 형태소 분석기는 설치되어 있으면 사용, 없으면 정규식 기반 토큰화로 대체
+try:
+    from konlpy.tag import Okt
+    KONLPY_AVAILABLE = True
+except Exception:
+    KONLPY_AVAILABLE = False
+
+try:
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.metrics.pairwise import cosine_similarity
+    SKLEARN_AVAILABLE = True
+except ImportError:
+    SKLEARN_AVAILABLE = False
+
+
+# =========================================================
+# 0. 설정
+# =========================================================
+
+EVENT_FILE = "라벨링/naver_reviews_이태리국시_2차.csv"
+NORMAL_FILE = "라벨링/naver_reviews_난포_2차.csv"
+
+EVENT_STORE_NAME = "이태리국시"
+NORMAL_STORE_NAME = "난포"
+
+OUTPUT_DIR = "이태리국시_난포_비교결과"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+# Windows 한글 폰트 설정
+plt.rcParams["font.family"] = "Malgun Gothic"
+plt.rcParams["axes.unicode_minus"] = False
+
+# KoNLPy를 쓸 경우 JVM 경로가 필요하면 여기에 입력
+# 예: r"C:\Program Files\Eclipse Adoptium\jdk-11.0.31.11-hotspot\bin\server\jvm.dll"
+JVM_PATH = None
+
+
+# =========================================================
+# 1. CSV 안전하게 불러오기
+# =========================================================
+
+def read_csv_safely(path):
+    encodings = ["utf-8-sig", "cp949", "euc-kr", "utf-8"]
+    last_error = None
+
+    for enc in encodings:
+        try:
+            return pd.read_csv(path, encoding=enc)
+        except UnicodeDecodeError as e:
+            last_error = e
+        except FileNotFoundError:
+            raise FileNotFoundError(f"파일을 찾을 수 없습니다: {path}")
+
+    raise UnicodeDecodeError(
+        "unknown", b"", 0, 1,
+        f"CSV 인코딩을 자동 판별하지 못했습니다. 마지막 오류: {last_error}"
+    )
+
+
+event_df = read_csv_safely(EVENT_FILE)
+normal_df = read_csv_safely(NORMAL_FILE)
+
+event_df["store"] = EVENT_STORE_NAME
+event_df["group"] = "event"
+normal_df["store"] = NORMAL_STORE_NAME
+normal_df["group"] = "normal"
+
+df = pd.concat([event_df, normal_df], ignore_index=True)
+
+print("\n[데이터 불러오기 완료]")
+print(df.groupby(["group", "store"]).size())
+print("컬럼 목록:", list(df.columns))
+
+
+# =========================================================
+# 2. 컬럼명 표준화
+# =========================================================
+# 현재 태양곱창 코드 기준 컬럼: 계정 ID, 계정의 리뷰 수, 방문 날짜, 방문 횟수, 인증 수단, 사진 유무, 리뷰 내용 등
+# 혹시 다른 코드에서 쓰던 영어 컬럼명이 섞여 있어도 최대한 자동 대응
+
+COLUMN_CANDIDATES = {
+    "account_id": ["계정 ID", "account_id", "user_id", "작성자"],
+    "account_review_count": ["계정의 리뷰 수", "account_review", "account_review_count", "리뷰 수"],
+    "visit_date": ["방문 날짜", "visit_date", "date"],
+    "visit_count_raw": ["방문 횟수", "visit_count"],
+    "verification": ["인증 수단", "verification"],
+    "has_photo_raw": ["사진 유무", "has_photo", "photo"],
+    "review_text": ["리뷰 내용", "review", "review_text", "내용"],
+    "rating": ["별점", "rating", "score"],
+    "account_avg_rating": ["계정 평균 별점", "account_avg_rating", "user_avg_rating"],
+}
+
+
+def find_column(df, candidates):
+    for col in candidates:
+        if col in df.columns:
+            return col
+    return None
+
+
+for new_col, candidates in COLUMN_CANDIDATES.items():
+    old_col = find_column(df, candidates)
+    if old_col is not None:
+        df[new_col] = df[old_col]
+    else:
+        df[new_col] = pd.NA
+
+# 필수 컬럼 보정
+df["review_text"] = df["review_text"].fillna("").astype(str)
+df["account_review_count"] = pd.to_numeric(df["account_review_count"], errors="coerce")
+df["rating"] = pd.to_numeric(df["rating"], errors="coerce")
+df["account_avg_rating"] = pd.to_numeric(df["account_avg_rating"], errors="coerce")
+
+# 사진 유무 보정
+def to_photo_flag(x):
+    if pd.isna(x):
+        return 0
+    s = str(x).strip().lower()
+    return int(s in ["true", "1", "yes", "y", "있음", "사진있음", "o"])
+
+
+df["has_photo"] = df["has_photo_raw"].apply(to_photo_flag)
+
+# 방문 횟수 숫자화: '1번째 방문' -> 1
+def parse_visit_count(x):
+    if pd.isna(x):
+        return pd.NA
+    m = re.search(r"\d+", str(x))
+    if m:
+        return int(m.group())
+    return pd.NA
+
+
+df["visit_count"] = df["visit_count_raw"].apply(parse_visit_count)
+
+# 공백 리뷰, 중복 리뷰 정리
+df["review_text"] = df["review_text"].str.strip()
+df = df[df["review_text"] != ""].copy()
+
+before_dup = len(df)
+df = df.drop_duplicates(subset=["group", "review_text"]).copy()
+after_dup = len(df)
+print(f"\n[중복 제거] {before_dup}개 -> {after_dup}개")
+
+
+# =========================================================
+# 3. 텍스트 정리 함수
+# =========================================================
+
+def clean_text(text):
+    text = str(text)
+    # 분석용: 한글, 숫자, 영어, 공백만 남김
+    text = re.sub(r"[^가-힣a-zA-Z0-9\s]", " ", text)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip()
+
+
+df["clean_review"] = df["review_text"].apply(clean_text)
+df["review_length"] = df["review_text"].str.len()
+df["clean_length"] = df["clean_review"].str.len()
+
+
+# =========================================================
+# 4. 태양곱창 코드 중심 feature 사전
+# =========================================================
+
+experience_words = [
+    "웨이팅", "대기", "직원", "서비스", "자리",
+    "분위기", "가격", "포장", "가성비", "매장", "친절", "불친절", "주문"
+]
+
+context_words = [
+    "점심", "저녁", "주말", "평일", "겨울", "여름", "봄", "가을",
+    "회식", "데이트", "친구", "가족", "2차", "혼밥", "퇴근",
+    "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일",
+    "월욜", "화욜", "수욜", "목욜", "금욜", "토욜", "일욜"
+]
+
+generic_praise_words = [
+    "맛있", "최고", "넘", "좋아요", "맛집", "추천", "강추"
+]
+
+intensifier_words = [
+    "진짜", "너무", "완전", "엄청", "존맛", "대박", "짱", "개맛", "핵맛"
+]
+
+sns_event_words = [
+    "인스타", "릴스", "SNS", "sns", "이벤트", "리뷰이벤트", "서비스"
+]
+
+positive_words = [
+    "맛있", "좋", "최고", "강추", "추천", "든든", "괜찮", "친절", "만족"
+]
+
+negative_words = [
+    "별로", "아쉽", "비싸", "길", "불편",
+    "실망", "밍밍", "맹맹", "최악", "짜", "느끼", "불친절"
+]
+
+contrast_words = [
+    "다만", "근데", "하지만", "아쉽", "그래도", "긴 해", "긴해", "반면"
+]
+
+trendy_revisit_words = [
+    "재방문", "또 올게요", "또올게요", "또 갈게요", "또갈게요", "또 방문", "또방문"
+]
+
+stopwords = set([
+    "정말", "진짜", "너무", "완전", "엄청", "그냥", "그리고", "근데", "하지만",
+    "여기", "저기", "오늘", "이번", "다음", "정도", "느낌", "방문", "리뷰",
+])
+
+
+# =========================================================
+# 5. Feature 생성: 점수화가 아니라 비교용 지표만 생성
+# =========================================================
+
+def count_keywords(text, words):
+    return sum(str(text).count(word) for word in words)
+
+
+def has_mixed_sentiment(text):
+    text = str(text)
+    has_pos = any(word in text for word in positive_words)
+    has_neg = any(word in text for word in negative_words)
+    has_contrast = any(word in text for word in contrast_words)
+    return int((has_pos and has_neg) or (has_pos and has_contrast))
+
+
+def count_number_patterns(text):
+    patterns = [
+        r"\d+\s*분",
+        r"\d+\s*인분",
+        r"\d+\s*원",
+        r"\d+\s*명",
+        r"\d+\s*시",
+        r"\d+\s*차",
+    ]
+    return sum(len(re.findall(pattern, str(text))) for pattern in patterns)
+
+
+df["length_under_10"] = (df["review_length"] < 10).astype(int)
+df["length_under_30"] = (df["review_length"] < 30).astype(int)
+df["length_over_30"] = (df["review_length"] >= 30).astype(int)
+df["length_over_60"] = (df["review_length"] >= 60).astype(int)
+
+df["experience_count"] = df["review_text"].apply(lambda x: count_keywords(x, experience_words))
+df["has_experience"] = (df["experience_count"] > 0).astype(int)
+df["strong_experience_review"] = (df["experience_count"] >= 2).astype(int)
+
+df["context_count"] = df["review_text"].apply(lambda x: count_keywords(x, context_words))
+df["has_context"] = (df["context_count"] > 0).astype(int)
+
+df["has_any_number"] = df["review_text"].str.contains(r"\d", regex=True).astype(int)
+df["number_detail_count"] = df["review_text"].apply(count_number_patterns)
+df["has_number_detail"] = (df["number_detail_count"] > 0).astype(int)
+
+df["generic_praise_count"] = df["review_text"].apply(lambda x: count_keywords(x, generic_praise_words))
+df["has_generic_praise"] = (df["generic_praise_count"] > 0).astype(int)
+
+df["intensifier_count"] = df["review_text"].apply(lambda x: count_keywords(x, intensifier_words))
+df["intensifier_over_3"] = (df["intensifier_count"] >= 3).astype(int)
+
+df["exclamation_count"] = df["review_text"].str.count("!")
+df["exclamation_over_3"] = (df["exclamation_count"] >= 3).astype(int)
+
+df["sns_event_count"] = df["review_text"].apply(lambda x: count_keywords(x, sns_event_words))
+df["has_sns_event"] = (df["sns_event_count"] > 0).astype(int)
+
+df["mixed_sentiment"] = df["review_text"].apply(has_mixed_sentiment)
+
+df["trendy_revisit_count"] = df["review_text"].apply(lambda x: count_keywords(x, trendy_revisit_words))
+df["has_trendy_revisit_phrase"] = (df["trendy_revisit_count"] > 0).astype(int)
+
+df["account_review_count_is_1"] = (df["account_review_count"] == 1).astype(int)
+df["account_review_count_under_5"] = (df["account_review_count"] <= 5).astype(int)
+df["account_review_count_over_10"] = (df["account_review_count"] >= 10).astype(int)
+df["account_review_count_over_50"] = (df["account_review_count"] >= 50).astype(int)
+
+df["first_visit"] = (df["visit_count"] == 1).astype(int)
+df["revisit"] = (df["visit_count"] >= 2).astype(int)
+
+# 조합 feature
+df["short_generic_review"] = ((df["review_length"] < 30) & (df["has_generic_praise"] == 1)).astype(int)
+df["ultra_short_praise"] = ((df["review_length"] < 10) & (df["has_generic_praise"] == 1)).astype(int)
+
+df["generic_without_detail"] = (
+    (df["has_generic_praise"] == 1)
+    & (df["has_experience"] == 0)
+    & (df["has_context"] == 0)
+    & (df["has_number_detail"] == 0)
+).astype(int)
+
+df["only_praise"] = (
+    (df["has_generic_praise"] == 1)
+    & (df["has_experience"] == 0)
+    & (df["has_context"] == 0)
+    & (df["has_number_detail"] == 0)
+).astype(int)
+
+df["experience_rich_review"] = (
+    (df["has_experience"] == 1)
+    | (df["has_context"] == 1)
+    | (df["has_number_detail"] == 1)
+).astype(int)
+
+df["rich_context_review"] = (
+    (df["length_over_60"] == 1)
+    & ((df["has_context"] == 1) | (df["has_experience"] == 1))
+).astype(int)
+
+df["low_information_review"] = (
+    (df["review_length"] < 30)
+    & (df["has_experience"] == 0)
+    & (df["has_context"] == 0)
+    & (df["has_number_detail"] == 0)
+).astype(int)
+
+# 이벤트성 의심 패턴: 판정용 점수 아님. 비교용 flag.
+df["event_like_short_praise"] = (
+    (df["review_length"] < 30)
+    & (df["has_generic_praise"] == 1)
+).astype(int)
+
+df["event_like_sns_or_service"] = (
+    (df["has_sns_event"] == 1)
+    | (df["review_text"].str.contains("서비스", na=False))
+).astype(int)
+
+df["event_like_low_info_first_visit"] = (
+    (df["low_information_review"] == 1)
+    & (df["first_visit"] == 1)
+).astype(int)
+
+
+# =========================================================
+# 6. 비교표 생성
+# =========================================================
+
+features_to_compare = [
+    "review_length", "length_under_10", "length_under_30", "length_over_30", "length_over_60",
+    "account_review_count", "account_review_count_is_1", "account_review_count_under_5",
+    "account_review_count_over_10", "account_review_count_over_50",
+    "first_visit", "revisit", "has_photo", "rating", "account_avg_rating",
+    "experience_count", "has_experience", "strong_experience_review",
+    "context_count", "has_context",
+    "has_any_number", "number_detail_count", "has_number_detail",
+    "generic_praise_count", "has_generic_praise", "short_generic_review", "ultra_short_praise",
+    "generic_without_detail", "menu_only_praise",
+    "intensifier_count", "intensifier_over_3", "exclamation_count", "exclamation_over_3",
+    "sns_event_count", "has_sns_event", "mixed_sentiment", "has_trendy_revisit_phrase",
+    "experience_rich_review", "high_specificity_review", "rich_context_review", "low_information_review",
+    "event_like_short_praise", "event_like_sns_or_service", "event_like_low_info_first_visit",
+]
+
+# 실제 존재하고 분석 가능한 컬럼만 사용
+features_to_compare = [c for c in features_to_compare if c in df.columns]
+
+comparison_mean = df.groupby(["group", "store"])[features_to_compare].mean().round(3)
+comparison_count = df.groupby(["group", "store"])["review_text"].count().rename("review_count")
+
+# event - normal 차이 계산
+mean_by_group = df.groupby("group")[features_to_compare].mean()
+diff = (mean_by_group.loc["event"] - mean_by_group.loc["normal"]).sort_values(ascending=False).round(3)
+diff_df = diff.reset_index()
+diff_df.columns = ["feature", "event_minus_normal"]
+
+diff_df["event_mean"] = diff_df["feature"].map(mean_by_group.loc["event"].round(3))
+diff_df["normal_mean"] = diff_df["feature"].map(mean_by_group.loc["normal"].round(3))
+
+print("\n[식당별 리뷰 수]")
+print(comparison_count)
+
+print("\n[Feature 평균 비교]")
+print(comparison_mean)
+
+print("\n[이태리국시에서 더 높게 나타나는 feature TOP 20]")
+print(diff_df.head(20).to_string(index=False))
+
+print("\n[난포에서 더 높게 나타나는 feature TOP 20]")
+print(diff_df.tail(20).sort_values("event_minus_normal").to_string(index=False))
+
+
+# =========================================================
+# 7. 단어 분석: KoNLPy 가능하면 명사, 아니면 정규식 토큰
+# =========================================================
+
+okt = None
+if KONLPY_AVAILABLE:
+    try:
+        if JVM_PATH:
+            okt = Okt(jvmpath=JVM_PATH)
+        else:
+            okt = Okt()
+        print("\n[KoNLPy/Okt 사용 가능] 명사 기반 단어 분석을 수행합니다.")
+    except Exception as e:
+        print("\n[KoNLPy/Okt 초기화 실패] 정규식 기반 단어 분석으로 대체합니다.")
+        print("오류:", e)
+        okt = None
+else:
+    print("\n[KoNLPy 미설치] 정규식 기반 단어 분석으로 대체합니다.")
+
+
+def tokenize(text):
+    text = clean_text(text)
+
+    if okt is not None:
+        tokens = okt.nouns(text)
+    else:
+        # 조사/어미가 붙은 단어까지 완벽하게 자르지는 못하지만, 설치 오류 없이 돌아가는 안전한 대체 방식
+        tokens = re.findall(r"[가-힣a-zA-Z]{2,}", text)
+
+    tokens = [t for t in tokens if len(t) >= 2 and t not in stopwords]
+    return tokens
+
+
+def get_word_counter(subset):
+    words = []
+    for text in subset["review_text"]:
+        words.extend(tokenize(text))
+    return Counter(words)
+
+word_rows = []
+for group_name, store_name in [("event", EVENT_STORE_NAME), ("normal", NORMAL_STORE_NAME)]:
+    subset = df[df["group"] == group_name]
+    counter = get_word_counter(subset)
+    for word, count in counter.most_common(100):
+        word_rows.append({
+            "group": group_name,
+            "store": store_name,
+            "word": word,
+            "count": count,
+        })
+
+word_freq_df = pd.DataFrame(word_rows)
+
+print("\n[상위 단어 TOP 20]")
+for store_name in [EVENT_STORE_NAME, NORMAL_STORE_NAME]:
+    print(f"\n--- {store_name} ---")
+    print(word_freq_df[word_freq_df["store"] == store_name].head(20).to_string(index=False))
+
+# event/normal 상대 빈도 비교
+pivot_words = word_freq_df.pivot_table(
+    index="word",
+    columns="group",
+    values="count",
+    aggfunc="sum",
+    fill_value=0
+).reset_index()
+
+for col in ["event", "normal"]:
+    if col not in pivot_words.columns:
+        pivot_words[col] = 0
+
+pivot_words["event_minus_normal_count"] = pivot_words["event"] - pivot_words["normal"]
+pivot_words = pivot_words.sort_values("event_minus_normal_count", ascending=False)
+
+print("\n[이태리국시 쪽에서 더 많이 나온 단어 TOP 30]")
+print(pivot_words.head(30).to_string(index=False))
+
+
+# =========================================================
+# 8. 유사 리뷰 분석: 리뷰 문구가 서로 비슷한지 확인
+# =========================================================
+
+if SKLEARN_AVAILABLE and len(df) >= 3:
+    similarity_rows = []
+
+    for group_name, store_name in [("event", EVENT_STORE_NAME), ("normal", NORMAL_STORE_NAME)]:
+        subset = df[df["group"] == group_name].copy()
+        sample_n = min(200, len(subset))
+        subset = subset.sample(n=sample_n, random_state=42) if len(subset) > sample_n else subset
+
+        if len(subset) >= 3:
+            vectorizer = TfidfVectorizer()
+            X = vectorizer.fit_transform(subset["clean_review"])
+            sim_matrix = cosine_similarity(X)
+
+            max_sims = []
+            for i in range(len(sim_matrix)):
+                scores = list(sim_matrix[i])
+                scores.pop(i)
+                max_sims.append(max(scores))
+
+            subset["max_similarity"] = max_sims
+            similarity_rows.append(subset[["group", "store", "review_text", "max_similarity"]])
+
+    if similarity_rows:
+        similarity_df = pd.concat(similarity_rows, ignore_index=True)
+        print("\n[평균 최대 유사도]")
+        print(similarity_df.groupby(["group", "store"])["max_similarity"].mean().round(3))
+    else:
+        similarity_df = pd.DataFrame()
+else:
+    similarity_df = pd.DataFrame()
+    print("\n[유사도 분석 생략] scikit-learn 미설치 또는 데이터 부족")
+
+
+# =========================================================
+# 9. 시각화 함수
+# =========================================================
+
+def save_bar_chart(data, x_col, y_col, title, filename, rotation=45):
+    plt.figure(figsize=(10, 6))
+    plt.bar(data[x_col].astype(str), data[y_col])
+    plt.title(title)
+    plt.xlabel(x_col)
+    plt.ylabel(y_col)
+    plt.xticks(rotation=rotation, ha="right")
+    plt.tight_layout()
+    plt.savefig(os.path.join(OUTPUT_DIR, filename), dpi=200)
+    plt.close()
+
+
+def save_group_bar_chart(feature_list, filename, title):
+    plot_df = df.groupby("store")[feature_list].mean().T
+    plot_df.plot(kind="bar", figsize=(12, 6))
+    plt.title(title)
+    plt.xlabel("feature")
+    plt.ylabel("mean / ratio")
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.savefig(os.path.join(OUTPUT_DIR, filename), dpi=200)
+    plt.close()
+
+
+# 9-1. 리뷰 길이 히스토그램
+plt.figure(figsize=(10, 6))
+for store_name in [EVENT_STORE_NAME, NORMAL_STORE_NAME]:
+    subset = df[df["store"] == store_name]
+    plt.hist(subset["review_length"], bins=30, alpha=0.5, label=store_name)
+plt.title("리뷰 길이 분포 비교")
+plt.xlabel("리뷰 길이")
+plt.ylabel("리뷰 수")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(OUTPUT_DIR, "01_review_length_distribution.png"), dpi=200)
+plt.close()
+
+# 9-2. 리뷰 길이 박스플롯
+box_data = [df[df["store"] == store]["review_length"] for store in [EVENT_STORE_NAME, NORMAL_STORE_NAME]]
+plt.figure(figsize=(8, 6))
+plt.boxplot(box_data, labels=[EVENT_STORE_NAME, NORMAL_STORE_NAME])
+plt.title("리뷰 길이 박스플롯")
+plt.ylabel("리뷰 길이")
+plt.tight_layout()
+plt.savefig(os.path.join(OUTPUT_DIR, "02_review_length_boxplot.png"), dpi=200)
+plt.close()
+
+# 9-3. 핵심 feature 비교 그래프
+core_features = [
+    "length_under_30", "has_generic_praise", "generic_without_detail", "low_information_review",
+    "has_food_detail", "has_menu", "has_experience", "has_context", "has_number_detail",
+    "first_visit", "account_review_count_under_5", "has_photo",
+    "has_sns_event", "mixed_sentiment"
+]
+core_features = [c for c in core_features if c in df.columns]
+save_group_bar_chart(core_features, "03_core_feature_comparison.png", "핵심 리뷰 패턴 feature 비교")
+
+# 9-4. 이벤트 의심 패턴 비교 그래프
+candidate_features = [
+    "event_like_short_praise", "event_like_sns_or_service", "event_like_low_info_first_visit",
+    "short_generic_review", "ultra_short_praise", "menu_only_praise", "intensifier_over_3", "exclamation_over_3"
+]
+candidate_features = [c for c in candidate_features if c in df.columns]
+save_group_bar_chart(candidate_features, "04_event_like_pattern_comparison.png", "리뷰이벤트 의심 후보 패턴 비교")
+
+# 9-5. 상위 단어 막대그래프
+for group_name, store_name in [("event", EVENT_STORE_NAME), ("normal", NORMAL_STORE_NAME)]:
+    top_words = word_freq_df[word_freq_df["group"] == group_name].head(20)
+    if not top_words.empty:
+        save_bar_chart(
+            top_words,
+            "word",
+            "count",
+            f"{store_name} 상위 단어 TOP 20",
+            f"05_top_words_{store_name}.png"
+        )
+
+# 9-6. EVENT STORE에서 더 많이 나온 단어 막대그래프
+event_more_words = pivot_words[pivot_words["event_minus_normal_count"] > 0].head(20)
+if not event_more_words.empty:
+    save_bar_chart(
+        event_more_words,
+        "word",
+        "event_minus_normal_count",
+        "이태리국시에서 더 많이 나온 단어 TOP 20",
+        "06_event_more_words.png"
+    )
+
+# 9-7. 워드클라우드
+if WORDCLOUD_AVAILABLE:
+    # 윈도우 기본 한글 폰트 후보
+    font_candidates = [
+        r"C:\Windows\Fonts\malgun.ttf",
+        r"C:\Windows\Fonts\NanumGothic.ttf",
+        "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
+    ]
+    font_path = next((p for p in font_candidates if os.path.exists(p)), None)
+
+    for group_name, store_name in [("event", EVENT_STORE_NAME), ("normal", NORMAL_STORE_NAME)]:
+        counter = Counter()
+        subset = df[df["group"] == group_name]
+        for text in subset["review_text"]:
+            counter.update(tokenize(text))
+
+        if counter:
+            wc = WordCloud(
+                font_path=font_path,
+                width=1000,
+                height=700,
+                background_color="white",
+                max_words=100
+            ).generate_from_frequencies(counter)
+
+            plt.figure(figsize=(10, 7))
+            plt.imshow(wc, interpolation="bilinear")
+            plt.axis("off")
+            plt.title(f"{store_name} 워드클라우드")
+            plt.tight_layout()
+            plt.savefig(os.path.join(OUTPUT_DIR, f"07_wordcloud_{store_name}.png"), dpi=200)
+            plt.close()
+else:
+    print("\n[wordcloud 미설치] 워드클라우드는 생략합니다. 필요하면 pip install wordcloud 실행")
+
+
+# =========================================================
+# 10. 결과 저장
+# =========================================================
+
+# 전체 feature 데이터
+df.to_csv(os.path.join(OUTPUT_DIR, "reviews_with_comparison_features.csv"), index=False, encoding="utf-8-sig")
+
+# 식당별 평균 비교표
+comparison_mean.to_csv(os.path.join(OUTPUT_DIR, "feature_mean_by_store.csv"), encoding="utf-8-sig")
+
+# event - normal 차이표
+diff_df.to_csv(os.path.join(OUTPUT_DIR, "feature_difference_event_minus_normal.csv"), index=False, encoding="utf-8-sig")
+
+# 단어 빈도
+word_freq_df.to_csv(os.path.join(OUTPUT_DIR, "word_frequency_top100.csv"), index=False, encoding="utf-8-sig")
+pivot_words.to_csv(os.path.join(OUTPUT_DIR, "word_difference_event_minus_normal.csv"), index=False, encoding="utf-8-sig")
+
+# 유사도 결과
+if not similarity_df.empty:
+    similarity_df.to_csv(os.path.join(OUTPUT_DIR, "review_similarity_sample.csv"), index=False, encoding="utf-8-sig")
+
+# 간단 요약 txt
+summary_path = os.path.join(OUTPUT_DIR, "분석_요약.txt")
+with open(summary_path, "w", encoding="utf-8") as f:
+    f.write("(리뷰이벤트 O) vs (리뷰이벤트 X) 리뷰 패턴 비교 분석\n")
+    f.write("=" * 70 + "\n\n")
+    f.write("[주의]\n")
+    f.write("이 코드는 true/authenticity/trust score를 계산하지 않습니다.\n")
+    f.write("현재 단계의 목적은 두 식당의 리뷰 패턴 차이를 관찰하고, 진정성 필터 후보 feature를 찾는 것입니다.\n\n")
+
+    f.write("[리뷰 수]\n")
+    f.write(comparison_count.to_string())
+    f.write("\n\n")
+
+    f.write("[이태리국시에서 더 높게 나타나는 feature TOP 20]\n")
+    f.write(diff_df.head(20).to_string(index=False))
+    f.write("\n\n")
+
+    f.write("[난포에서 더 높게 나타나는 feature TOP 20]\n")
+    f.write(diff_df.tail(20).sort_values("event_minus_normal").to_string(index=False))
+    f.write("\n\n")
+
+    f.write("[이태리국시에서 더 많이 나온 단어 TOP 30]\n")
+    f.write(pivot_words.head(30).to_string(index=False))
+    f.write("\n")
+
+print("\n[저장 완료]")
+print(f"결과 폴더: {OUTPUT_DIR}")
+print("- reviews_with_comparison_features.csv")
+print("- feature_mean_by_store.csv")
+print("- feature_difference_event_minus_normal.csv")
+print("- word_frequency_top100.csv")
+print("- word_difference_event_minus_normal.csv")
+print("- 분석_요약.txt")
+print("- PNG 시각화 파일들")

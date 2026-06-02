@@ -4,7 +4,7 @@ from datetime import datetime
 # 수집 대상 설정
 # =====================================
 NAVER_MAP_URL = (
-    "https://map.naver.com/p/search/%EA%B5%B4%EB%8B%A4%EB%A6%AC%EC%8B%9D%EB%8B%B9/place/11707324?c=15.00,0,0,0,dh&placePath=/review?bk_query=%EA%B5%B4%EB%8B%A4%EB%A6%AC%EC%8B%9D%EB%8B%B9&entry=bmp&fromPanelNum=2&locale=ko&searchText=%EA%B5%B4%EB%8B%A4%EB%A6%AC%EC%8B%9D%EB%8B%B9&svcName=map_pcv5&timestamp=202605011305&entry=bmp&fromPanelNum=2&timestamp=202605011305&locale=ko&svcName=map_pcv5&searchText=%EA%B5%B4%EB%8B%A4%EB%A6%AC%EC%8B%9D%EB%8B%B9&from=map"
+    "https://map.naver.com/p/search/%EB%B3%B4%EB%81%94%EB%8B%B9/place/1445717867?c=15.00,0,0,0,dh&placePath=/review?bk_query=%EB%B3%B4%EB%81%94%EB%8B%B9&entry=bmp&fromPanelNum=2&locale=ko&searchText=%EB%B3%B4%EB%81%94%EB%8B%B9&svcName=map_pcv5&timestamp=202605101410&entry=bmp&fromPanelNum=2&timestamp=202605101410&locale=ko&svcName=map_pcv5&searchText=%EB%B3%B4%EB%81%94%EB%8B%B9&from=map"
 )
 
 # 수집할 리뷰 날짜 범위 (이 날짜 이전 리뷰가 나오면 수집 중단)

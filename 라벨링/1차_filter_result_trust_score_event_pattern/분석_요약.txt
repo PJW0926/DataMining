@@ -1,0 +1,42 @@
+리뷰이벤트 패턴 반영 trust_score 기반 진정성 필터 결과
+======================================================================
+
+[반영한 핵심 feature]
+- generic praise: 일반적 칭찬이 많으면 trust_score 감소
+- generic without detail: 일반 칭찬은 있으나 구체 근거가 없으면 trust_score 크게 감소
+- has number detail: 숫자 기반 구체 정보가 있으면 trust_score 증가
+- visit_count: 첫 방문은 trust_score 감소, 재방문은 trust_score 증가
+- account_review_count: 리뷰 수가 매우 적으면 trust_score 감소, 충분히 많으면 trust_score 증가
+
+[성능]
+dataset  accuracy  precision_real_1  recall_real_1  f1_real_1  precision_fake_0  recall_fake_0  f1_fake_0  wrong_cases  total  tn_fake_correct  fp_fake_to_real  fn_real_to_fake  tp_real_correct
+  TRAIN  0.719124          0.681239       0.777547   0.726214          0.764835       0.665392   0.711656          564   2008              696              350              214              748
+   TEST  0.752988          0.715867       0.804979   0.757812          0.796537       0.704981   0.747967          124    502              184               77               47              194
+
+[manual_label별 핵심 feature 평균]
+              review_length  account_review_count  visit_count  has_photo  rating  account_avg_rating  has_generic_praise  generic_count  strong_generic_praise  generic_without_detail  short_generic_review  low_information_review  has_number_detail  number_detail_count  first_visit  revisit  account_review_count_is_1  account_review_count_under_5  account_review_count_under_10  account_review_count_over_50  account_review_count_over_100  has_menu  menu_count  category_count  has_detailed_negative  specific_review
+manual_label                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+0                    38.851               286.018        1.735      0.743   4.269               4.191               0.756          1.223                  0.325                   0.179                 0.318                   0.224              0.041                0.055        0.418    0.081                      0.145                         0.236                          0.285                         0.412                          0.315     0.345       0.573           0.614                  0.203            0.527
+1                   138.741               237.395        1.271      0.671   3.070               3.650               0.714          1.460                  0.410                   0.017                 0.012                   0.014              0.186                0.309        0.375    0.046                      0.078                         0.180                          0.244                         0.476                          0.353     0.734       2.486           1.285                  0.530            0.896
+
+[Random Forest Feature Importance TOP 20]
+review_length                    0.331530
+menu_count                       0.093416
+account_review_count             0.078791
+reason_count                     0.068883
+short_generic_review             0.049980
+account_avg_rating               0.045198
+rating                           0.039551
+specific_review                  0.038074
+category_count                   0.035667
+generic_count                    0.030121
+intensifier_count                0.025550
+has_detailed_negative            0.024050
+low_information_review           0.015479
+visit_count                      0.014299
+has_photo                        0.014178
+strong_generic_praise            0.011261
+number_detail_count              0.010073
+account_review_count_over_50     0.010065
+has_generic_praise               0.009751
+account_review_count_over_100    0.009296

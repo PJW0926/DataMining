@@ -1,0 +1,203 @@
+﻿term,aspect,base_polarity,source,matched_count
+EMO_POS,atmosphere,1,extra_zero_fix,1606
+맛있어요,food,1,manual_custom_dict,1343
+맛있고,food,1,manual_custom_dict,619
+맛있게,food,1,manual_custom_dict,562
+좋아요,food,1,manual_custom_dict,548
+좋고,food,1,manual_custom_dict,318
+재방문,service,1,extra_zero_fix,279
+맛있었어요,food,1,manual_custom_dict,251
+맛있어서,food,1,manual_custom_dict,251
+좋은,food,1,manual_custom_dict,238
+좋았어요,food,1,manual_custom_dict,225
+맛있습니다,food,1,manual_custom_dict,221
+친절하시고,service,1,manual_custom_dict,215
+깔끔하고,food,1,manual_custom_dict,198
+굿,food,1,extra_zero_fix,174
+맛있네요,food,1,manual_custom_dict,170
+부드럽고,food,1,manual_custom_dict,166
+다양,food,1,manual_custom_dict,165
+잘 먹었습니다,food,1,extra_zero_fix,141
+좋았습니다,food,1,manual_custom_dict,140
+맛있음,food,1,manual_custom_dict,129
+맛있었습니다,food,1,manual_custom_dict,120
+친절하고,service,1,manual_custom_dict,118
+맛잇,food,1,extra_zero_fix,115
+불친절,service,-1,manual_custom_dict,109
+모르겠,food,-1,manual_custom_dict,108
+양도 많고,food,1,manual_custom_dict,99
+맛있어용,food,1,manual_custom_dict,92
+분위기도 좋고,atmosphere,1,manual_custom_dict,90
+구워주셔서,service,1,manual_custom_dict,90
+굳,food,1,extra_zero_fix,89
+좋네요,food,1,manual_custom_dict,89
+친절하셔서,service,1,manual_custom_dict,83
+깔끔한,food,1,manual_custom_dict,76
+친절해서,service,1,manual_custom_dict,66
+친절하게,service,1,manual_custom_dict,63
+든든,food,1,manual_custom_dict,56
+맛있게 먹고,food,1,manual_custom_dict,56
+잘먹었습니다,food,1,extra_zero_fix,55
+맑은,food,1,manual_custom_dict,54
+맛집입니다,food,2,manual_custom_dict,51
+맛있는데,food,1,manual_custom_dict,51
+존맛,food,2,manual_custom_dict,47
+웨이팅 없이,service,2,manual_custom_dict,45
+잘 먹었어요,food,1,extra_zero_fix,43
+정갈하고,food,1,manual_custom_dict,41
+잡내 없이,food,2,manual_custom_dict,37
+분위기 좋고,atmosphere,1,manual_custom_dict,36
+맛도리,food,2,manual_custom_dict,35
+깔끔해서,food,1,manual_custom_dict,34
+분위기도 좋아서,atmosphere,1,manual_custom_dict,33
+맛있구,food,1,manual_custom_dict,32
+존맛탱,food,2,manual_custom_dict,32
+친절하십니다,service,1,manual_custom_dict,32
+분위기도 좋아요,atmosphere,1,manual_custom_dict,30
+맛있게 먹을,food,1,manual_custom_dict,29
+잘먹었어요,food,1,extra_zero_fix,28
+색다른,atmosphere,1,manual_custom_dict,27
+구워주셔서 편하게,service,1,manual_custom_dict,22
+매장도 넓고,atmosphere,1,manual_custom_dict,22
+먹기 좋은,food,1,manual_custom_dict,21
+구워주시는,service,1,manual_custom_dict,21
+할인,price,1,manual_custom_dict,20
+자극적이지 않고,food,1,manual_custom_dict,19
+양이 많고,food,1,manual_custom_dict,19
+편안하게,atmosphere,1,manual_custom_dict,18
+질도 좋고,food,1,manual_custom_dict,18
+맛있어여,food,1,manual_custom_dict,17
+맛있습니당,food,1,manual_custom_dict,17
+직접 구워주시고,service,1,manual_custom_dict,17
+가성비 좋은,price,2,manual_custom_dict,16
+푸짐한,price,1,manual_custom_dict,16
+맛있구요,food,1,manual_custom_dict,15
+냄새도 안나고,food,1,manual_custom_dict,15
+매장도 깔끔하고,atmosphere,1,manual_custom_dict,15
+맛있네용,food,1,manual_custom_dict,14
+분위기가 좋고,atmosphere,1,manual_custom_dict,14
+분위기가 좋아요,atmosphere,1,manual_custom_dict,14
+편했고,atmosphere,1,manual_custom_dict,14
+맛집 인정,food,2,manual_custom_dict,14
+서비스로,service,1,manual_custom_dict,13
+자극적이지 않아서,food,1,manual_custom_dict,13
+맛잇게,food,1,manual_custom_dict,13
+분위기 좋은,atmosphere,1,manual_custom_dict,12
+구워주는,service,1,manual_custom_dict,12
+또 갈,service,1,extra_zero_fix,12
+맛도 좋아요,food,1,manual_custom_dict,11
+양도 많아요,food,1,manual_custom_dict,11
+가성비 좋아요,price,1,manual_custom_dict,11
+맛남,food,1,manual_custom_dict,11
+밍밍한,food,-1,manual_custom_dict,11
+자극적이지 않은,food,1,manual_custom_dict,11
+특별한 맛은,food,-1,manual_custom_dict,11
+좁아서,atmosphere,-1,manual_custom_dict,10
+질이 좋고,food,1,manual_custom_dict,10
+양이 많아서,food,1,manual_custom_dict,10
+매장이 넓고,atmosphere,1,manual_custom_dict,10
+맛있었어용,food,1,manual_custom_dict,9
+슴슴하니,food,2,manual_custom_dict,9
+가격도 착하고,price,2,manual_custom_dict,8
+개존맛,food,2,manual_custom_dict,8
+짱짱,food,2,manual_custom_dict,8
+캠핑 분위기,atmosphere,2,manual_custom_dict,8
+매장도 넓어서,atmosphere,1,manual_custom_dict,8
+국물이 진하고,food,1,manual_custom_dict,8
+꿀맛,food,2,manual_custom_dict,8
+분위기가 좋아서,atmosphere,1,manual_custom_dict,7
+야장 분위기,atmosphere,2,manual_custom_dict,7
+양이 많아요,food,1,manual_custom_dict,7
+맛나용,food,1,manual_custom_dict,7
+기대 이상,food,2,manual_custom_dict,7
+고소해요,food,1,manual_custom_dict,7
+밍밍하고,food,-1,manual_custom_dict,7
+제일 맛있어요,food,2,manual_custom_dict,7
+분위기도 깔끔하고,atmosphere,1,manual_custom_dict,6
+꼬릿함,food,-1,manual_custom_dict,6
+만족한,food,1,manual_custom_dict,6
+정도는 아님,food,-1,manual_custom_dict,6
+최애 맛집,food,2,manual_custom_dict,6
+응대해주셔서,service,1,manual_custom_dict,6
+정갈하고 맛있어요,food,1,manual_custom_dict,6
+친절하심,service,1,manual_custom_dict,6
+운좋게 웨이팅,service,1,manual_custom_dict,6
+구워줘서 편하게,service,1,manual_custom_dict,5
+짱이에요,food,2,manual_custom_dict,5
+퀄리티도 좋고,food,1,manual_custom_dict,5
+매장도 크고,atmosphere,1,manual_custom_dict,5
+맛있움,food,1,manual_custom_dict,5
+맛있었네요,food,1,manual_custom_dict,5
+존맛이에요,food,2,manual_custom_dict,5
+친절해용,service,1,manual_custom_dict,5
+찝찝,food,-1,manual_custom_dict,5
+대기없이 바로,service,1,manual_custom_dict,5
+넓고 쾌적하고,atmosphere,1,manual_custom_dict,5
+넘맛,food,2,manual_custom_dict,5
+내부도 깔끔하고,atmosphere,1,manual_custom_dict,5
+맛잇습니다,food,1,manual_custom_dict,4
+개굿,food,2,manual_custom_dict,4
+자리도 넓어서,atmosphere,1,manual_custom_dict,4
+웨이팅 30분,service,-1,manual_custom_dict,4
+존맛입니다,food,2,manual_custom_dict,4
+깔끔하고 맛있었어요,atmosphere,1,manual_custom_dict,4
+구워져서 나와서,service,1,manual_custom_dict,4
+고기도 구워주시고,service,1,manual_custom_dict,4
+기대 이하,food,-2,manual_custom_dict,4
+맛은 그럭저럭,food,-1,manual_custom_dict,4
+데이트 장소로도,atmosphere,1,manual_custom_dict,4
+데이트로도,atmosphere,1,manual_custom_dict,4
+맛있어욤,food,1,manual_custom_dict,4
+맛집입니당,food,1,manual_custom_dict,4
+음식도 빨리 나와서,food,1,manual_custom_dict,4
+매장도 깔끔해서,atmosphere,1,manual_custom_dict,4
+예술입니다,food,2,extra_zero_fix,4
+깔끔하고 담백한,atmosphere,1,manual_custom_dict,4
+넘넘 맛있어요,food,1,manual_custom_dict,4
+넓고 분위기,atmosphere,1,manual_custom_dict,4
+깔끔하고 맛있는,atmosphere,1,manual_custom_dict,4
+분위기도 깔끔해서,atmosphere,1,manual_custom_dict,4
+시끄러움,atmosphere,-1,manual_custom_dict,3
+음식도 빨리 나오는,food,1,manual_custom_dict,3
+예술이에요,food,2,extra_zero_fix,3
+응대해주셔서 기분,service,1,manual_custom_dict,3
+냄새가 나서,food,-1,manual_custom_dict,3
+맛없다고,food,-2,manual_custom_dict,3
+구워줘요,service,1,manual_custom_dict,3
+맛있네여,food,1,manual_custom_dict,3
+3시간 웨이팅,service,-1,manual_custom_dict,3
+개맛있어요,food,1,manual_custom_dict,3
+맛있습니다 특히,food,1,manual_custom_dict,3
+맛없었음,food,-2,manual_custom_dict,3
+항상 대기가,service,-1,manual_custom_dict,3
+친절해여,service,1,manual_custom_dict,3
+쾌적하고 넓어서,atmosphere,1,manual_custom_dict,3
+존맛탱이에여,food,2,manual_custom_dict,3
+인테리어도 예쁘고,atmosphere,2,manual_custom_dict,3
+잡내나고,food,-2,manual_custom_dict,3
+존맛이고,food,2,manual_custom_dict,3
+예전같지,food,-1,manual_custom_dict,3
+분위기도 조용하고,atmosphere,1,manual_custom_dict,3
+변했어요,service,-1,manual_custom_dict,3
+분위기 있게,atmosphere,1,manual_custom_dict,3
+슴슴해요,food,-1,manual_custom_dict,3
+매장 넓고,atmosphere,1,manual_custom_dict,3
+분위기도 아늑하고,atmosphere,1,manual_custom_dict,3
+비추입니다,food,-2,manual_custom_dict,3
+싸가지가,service,-2,manual_custom_dict,3
+친절합니당,service,1,manual_custom_dict,3
+존맛탱이에요,food,2,manual_custom_dict,3
+깊은 맛이 나서,food,2,manual_custom_dict,2
+대박 맛있어요,food,2,manual_custom_dict,2
+구워줘서 좋아요,service,1,manual_custom_dict,2
+고기는 잡내 없고,food,1,manual_custom_dict,2
+가격은 착하지 않고,price,-1,manual_custom_dict,2
+맛없네요,food,-1,manual_custom_dict,2
+힙하고 이늑하고,atmosphere,1,manual_custom_dict,2
+무슨 맛이지,food,-1,manual_custom_dict,2
+자리도 넓어 편하기,atmosphere,1,manual_custom_dict,2
+정도의 맛은 아님,food,-1,manual_custom_dict,2
+구워주셔서 편해요,service,1,manual_custom_dict,1
+자극적이지 않게,food,1,manual_custom_dict,1
+쩔어요,food,2,extra_zero_fix,1
+짭짤하고 고기도 두꺼웠어요,food,1,manual_custom_dict,1

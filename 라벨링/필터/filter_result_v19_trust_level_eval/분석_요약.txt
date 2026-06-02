@@ -1,0 +1,74 @@
+v19 trust-level 기반 진정성 필터 결과
+======================================================================
+
+[수정 방향]
+- v16/v17의 3단계 trust system을 유지함
+- 식당 단위 점수 계산은 제외하고 리뷰별 trust_weight만 산출함
+- low=0.2, ambiguous=0.5, high=1.0의 리뷰별 신뢰 가중치를 부여함
+- 구체적인 긍정 경험 리뷰가 fake로 떨어지는 문제를 완화하기 위해 positive_narrative feature를 추가함
+- 예전 방문, 재방문, 처음 방문 등 temporal context를 genuine signal로 반영함
+- 장점과 단점이 함께 나타나는 mixed opinion review를 genuine signal로 반영함
+- negative detail 중심 판단에서 experience richness 중심 판단으로 보정함
+- rating_x_trust_weight는 식당 점수가 아니라 리뷰 단위 가중 평점 요소로만 저장함
+
+[Binary 성능]
+dataset  accuracy  precision_real_1  recall_real_1  f1_real_1  precision_fake_0  recall_fake_0  f1_fake_0  wrong_cases  total  tn_fake_correct  fp_fake_to_real  fn_real_to_fake  tp_real_correct
+    ALL  0.812351          0.794025       0.828548   0.810919          0.831179       0.797057   0.813760          471   2510             1029              262              209             1010
+  TRAIN  0.810259          0.788911       0.831795   0.809785          0.832653       0.789932   0.810730          381   2008              816              217              164              811
+   TEST  0.820717          0.815574       0.815574   0.815574          0.825581       0.825581   0.825581           90    502              213               45               45              199
+
+[Threshold Tuning TOP 10]
+ threshold  accuracy  precision_real  recall_real  f1_real  precision_fake  recall_fake  f1_fake  macro_f1
+       5.7  0.812351        0.794025     0.828548 0.810919        0.831179     0.797057 0.813760  0.812340
+       5.1  0.811952        0.777695     0.858080 0.815913        0.851502     0.768397 0.807818  0.811865
+       6.1  0.811952        0.802429     0.812961 0.807661        0.821176     0.810999 0.816056  0.811859
+       6.3  0.811952        0.807914     0.803938 0.805921        0.815729     0.819520 0.817620  0.811770
+       6.4  0.811952        0.810474     0.799836 0.805120        0.813313     0.823393 0.818322  0.811721
+       4.9  0.811554        0.772661     0.867104 0.817163        0.858144     0.759101 0.805590  0.811376
+       5.6  0.811155        0.789433     0.833470 0.810854        0.834015     0.790085 0.811456  0.811155
+       5.8  0.810757        0.794304     0.823626 0.808699        0.827448     0.798606 0.812771  0.810735
+       6.7  0.811155        0.818648     0.785070 0.801508        0.804623     0.835786 0.819909  0.810708
+       5.9  0.810757        0.798077     0.817063 0.807458        0.823296     0.804802 0.813944  0.810701
+
+[Trust Level 분포]
+manual_label     0     1   All
+trust_level                   
+ambiguous      254    82   336
+high           469  1103  1572
+low            568    34   602
+All           1291  1219  2510
+
+[manual_label별 핵심 feature 평균]
+              review_length  account_review_count  visit_count  has_photo  rating  account_avg_rating  has_generic_praise  generic_count  strong_generic_praise  generic_without_detail  short_generic_review  low_information_review  has_number_detail  number_detail_count  quality_detail_count  has_quality_detail  strong_quality_detail  sensory_detail_count  has_sensory_detail  strong_sensory_detail  waiting_popularity_count  has_waiting_popularity  experience_context_count  has_experience_context  temporal_context_count  has_temporal_context  mixed_opinion_count  has_mixed_opinion  positive_narrative  mixed_opinion_review  temporal_experience_review  popularity_only_review  enthusiastic_but_detailed  menu_price_listing_only  short_but_specific_food_review  detailed_negative_narrative  sentence_count  multi_sentence_review  first_visit  revisit  account_review_count_is_1  account_review_count_under_5  account_review_count_under_10  account_review_count_over_50  account_review_count_over_100  has_menu  menu_count  category_count  has_detailed_negative  specific_review  trust_score  trust_weight
+manual_label                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+0                    36.907               278.129        1.723      0.744   4.256               4.203               0.752          1.206                  0.324                   0.179                 0.325                   0.225              0.043                0.054                 0.098               0.081                  0.009                 0.156               0.122                  0.026                     0.125                   0.103                     0.694                   0.397                   0.228                 0.137                0.065              0.060               0.259                 0.126                       0.127                   0.040                       0.50                    0.001                           0.344                        0.217           1.692                  0.445        0.415    0.080                      0.153                         0.249                          0.301                         0.398                          0.304     0.376       0.715           0.679                  0.230            0.635        0.420         0.550
+1                   139.489               246.389        1.297      0.670   3.087               3.641               0.715          1.454                  0.404                   0.002                 0.008                   0.009              0.224                0.375                 0.428               0.270                  0.095                 0.571               0.335                  0.126                     0.550                   0.336                     2.284                   0.723                   0.533                 0.343                0.400              0.294               0.627                 0.628                       0.342                   0.023                       0.71                    0.000                           0.117                        0.634           3.485                  0.761        0.378    0.048                      0.071                         0.166                          0.227                         0.490                          0.365     0.847       3.533           1.543                  0.642            0.975       11.192         0.944
+
+[trust_level별 핵심 feature 평균]
+             review_length  account_review_count  visit_count  has_photo  rating  account_avg_rating  has_generic_praise  generic_count  strong_generic_praise  generic_without_detail  short_generic_review  low_information_review  has_number_detail  number_detail_count  quality_detail_count  has_quality_detail  strong_quality_detail  sensory_detail_count  has_sensory_detail  strong_sensory_detail  waiting_popularity_count  has_waiting_popularity  experience_context_count  has_experience_context  temporal_context_count  has_temporal_context  mixed_opinion_count  has_mixed_opinion  positive_narrative  mixed_opinion_review  temporal_experience_review  popularity_only_review  enthusiastic_but_detailed  menu_price_listing_only  short_but_specific_food_review  detailed_negative_narrative  sentence_count  multi_sentence_review  first_visit  revisit  account_review_count_is_1  account_review_count_under_5  account_review_count_under_10  account_review_count_over_50  account_review_count_over_100  has_menu  menu_count  category_count  has_detailed_negative  specific_review  trust_score  trust_weight
+trust_level                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+ambiguous           44.655               222.027        2.007      0.646   3.621               3.855               0.616          0.932                  0.241                   0.000                 0.214                     0.0              0.054                0.060                 0.092               0.086                  0.006                 0.131               0.113                  0.015                     0.119                   0.110                     0.622                   0.438                   0.173                 0.101                0.119              0.101               0.140                 0.018                       0.095                   0.083                      0.613                    0.000                           0.354                        0.149           1.625                  0.440        0.351    0.060                      0.104                         0.214                          0.292                         0.405                          0.304     0.357       0.708           0.565                  0.217            0.976        2.071           0.5
+high               121.396               249.128        1.318      0.727   3.448               3.828               0.778          1.546                  0.442                   0.000                 0.024                     0.0              0.196                0.319                 0.391               0.256                  0.080                 0.539               0.331                  0.116                     0.488                   0.308                     2.151                   0.745                   0.548                 0.349                0.333              0.249               0.645                 0.587                       0.347                   0.019                      0.778                    0.000                           0.195                        0.638           3.254                  0.770        0.426    0.058                      0.087                         0.177                          0.233                         0.472                          0.351     0.789       3.009           1.546                  0.640            1.000       10.845           1.0
+low                 19.676               320.899        1.904      0.694   4.149               4.143               0.684          0.973                  0.223                   0.387                 0.532                     0.5              0.003                0.008                 0.003               0.003                  0.000                 0.010               0.010                  0.000                     0.042                   0.037                     0.150                   0.125                   0.040                 0.022                0.015              0.015               0.063                 0.000                       0.005                   0.035                      0.135                    0.002                           0.267                        0.000           1.281                  0.239        0.349    0.083                      0.188                         0.289                          0.336                         0.387                          0.304     0.261       0.435           0.228                  0.002            0.181       -5.911           0.2
+
+[Random Forest Feature Importance TOP 20]
+review_length                     0.223589
+menu_count                        0.082305
+mixed_opinion_review              0.058209
+has_menu                          0.049298
+account_review_count              0.042756
+sentence_count                    0.039972
+specific_review                   0.033035
+short_but_specific_food_review    0.032671
+account_avg_rating                0.030870
+experience_context_count          0.027064
+short_generic_review              0.026975
+has_detailed_negative             0.025905
+detailed_negative_narrative       0.023270
+category_count                    0.023113
+rating                            0.022510
+generic_count                     0.019376
+positive_narrative                0.014225
+has_experience_context            0.012302
+mixed_opinion_count               0.011864
+waiting_popularity_count          0.010680
