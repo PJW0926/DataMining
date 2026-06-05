@@ -1,0 +1,1033 @@
+﻿word,category,polarity,score
+별미,food,positive,2
+부드럽다,food,positive,2
+배부르다,food,positive,2
+맛있다,food,positive,2
+살살,food,positive,2
+녹다,food,positive,2
+야들야들,food,positive,2
+고소하다,food,positive,2
+환상,food,positive,2
+궁합,food,positive,2
+킥,food,positive,2
+감동,food,positive,2
+뚝딱,food,positive,2
+적당하다,food,positive,1
+최고,food,positive,2
+만족스럽다,food,positive,2
+알차다,food,positive,2
+깔끔하다,food,positive,2
+만족,food,positive,2
+넉넉하다,food,positive,2
+괜찮다,food,positive,1
+달짝지근하다,food,positive,2
+신선하다,food,positive,2
+상큼,food,positive,2
+정신없이,food,positive,1
+자주,food,positive,1
+건강하다,food,positive,2
+위생,food,positive,2
+색다르다,food,positive,2
+비법,food,positive,1
+굿굿,food,positive,2
+질도,food,positive,1
+양도,food,positive,1
+끝내주다,food,positive,2
+싱싱하다,food,positive,2
+얼큰하다,food,positive,2
+달콤하다,food,positive,2
+곁들이다,food,positive,1
+당기다,food,positive,2
+눈물나다,food,positive,2
+충분하다,food,positive,2
+충만,food,positive,2
+촉촉하다,food,positive,2
+보드랍다,food,positive,2
+미치다,food,positive,2
+다양하다,food,positive,2
+감탄,food,positive,2
+편하다,food,positive,2
+추천,food,positive,2
+빠르다,food,positive,2
+무척,food,positive,2
+매우,food,positive,2
+훌륭하다,food,positive,2
+정갈하다,food,positive,2
+인상,food,positive,1
+어울리다,food,positive,2
+야무지다,food,positive,2
+여전하다,food,positive,2
+담백하다,food,positive,2
+쫀득쫀득한,food,positive,2
+맛집,food,positive,2
+인생,food,positive,2
+압도,food,positive,2
+존맛,food,positive,2
+개존맛,food,positive,2
+개굿,food,positive,2
+굿,food,positive,2
+크다,food,positive,2
+뜨끈하다,food,positive,2
+딱이다,food,positive,2
+특색,food,positive,2
+내공,food,positive,2
+시원하다,food,positive,2
+두툼하다,food,positive,2
+충실하다,food,positive,2
+물질,food,negative,-2
+흔하다,food,negative,-2
+느끼하다,food,negative,-2
+모호,food,negative,-2
+아깝다,food,negative,-2
+짜다,food,negative,-2
+퍽퍽,food,negative,-2
+적다,food,negative,-2
+힘들다,food,negative,-2
+부족하다,food,negative,-2
+쿰쿰하다,food,negative,-2
+비리다,food,negative,-2
+배탈,food,negative,-2
+심각하다,food,negative,-2
+부실하다,food,negative,-2
+달다,food,negative,-1
+애매하다,food,negative,-2
+의문,food,negative,-2
+흐물흐물,food,negative,-2
+차갑다,food,negative,-2
+질김,food,negative,-2
+질기다,food,negative,-2
+미지근하다,food,negative,-2
+너무 맛있다,food,positive,1
+진짜 맛있다,food,positive,1
+음식 맛있다,food,positive,1
+고기 맛있다,food,positive,1
+고기 부드럽다,food,positive,1
+안주 맛있다,food,positive,1
+김치 맛있다,food,positive,1
+음식 깔끔하다,food,positive,1
+반찬 맛있다,food,positive,1
+국물 진하다,food,positive,1
+느끼하다 않다,food,positive,1
+국물 깔끔하다,food,positive,1
+소스 맛있다,food,positive,1
+메뉴 맛있다,food,positive,1
+고기 좋다,food,positive,1
+보쌈 맛있다,food,positive,1
+비빔밥 맛있다,food,positive,1
+재료 신선하다,food,positive,1
+식감 좋다,food,positive,1
+양념 맛있다,food,positive,1
+반찬 깔끔하다,food,positive,1
+음식 좋다,food,positive,1
+고기 신선하다,food,positive,1
+볶음밥 맛있다,food,positive,1
+파스타 맛있다,food,positive,1
+삼겹살 맛있다,food,positive,1
+감자탕 맛있다,food,positive,1
+밑반찬 맛있다,food,positive,1
+감칠맛 좋다,food,positive,1
+김치 좋다,food,positive,1
+반찬 다양하다,food,positive,1
+돼지갈비 맛있다,food,positive,1
+닭갈비 맛있다,food,positive,1
+국물 맛있다,food,positive,1
+음식 괜찮다,food,positive,1
+김치찌개 맛있다,food,positive,1
+찌개 맛있다,food,positive,1
+국물 좋다,food,positive,1
+국물 시원하다,food,positive,1
+국물 깊다,food,positive,1
+갈비 맛있다,food,positive,1
+밑반찬 깔끔하다,food,positive,1
+냄새 없이,food,positive,1
+곰탕 맛있다,food,positive,1
+육회 맛있다,food,positive,1
+설렁탕 맛있다,food,positive,1
+보쌈 부드럽다,food,positive,1
+메뉴 추천,food,positive,1
+냉면 맛있다,food,positive,1
+메뉴 좋다,food,positive,1
+간편하다,food,positive,1
+냄새 없다,food,positive,1
+된장찌개 맛있다,food,positive,1
+김치 최고,food,positive,2
+칼국수 맛있다,food,positive,1
+맛있다 맵다,food,positive,1
+보쌈 최고,food,positive,2
+보쌈 훌륭하다,food,positive,2
+곰탕 깔끔하다,food,positive,1
+국밥 깔끔하다,food,positive,1
+고기 깔끔하다,food,positive,1
+설렁탕 좋다,food,positive,1
+국물 최고,food,positive,2
+비빔밥 고소하다,food,positive,1
+비빔밥 추천,food,positive,1
+샐러드 맛있다,food,positive,1
+간도 좋다,food,positive,1
+김치 신선하다,food,positive,1
+국물 얼큰하다,food,positive,1
+맵다,food,negative,-1
+맛없다,food,negative,-2
+싱겁다,food,negative,-1
+맛있다 않다,food,negative,-1
+고기 별로,food,negative,-1
+김치 아쉽다,food,negative,-1
+고기 누리다,food,negative,-1
+신선하다 않다,food,negative,-1
+파스타 느끼하다,food,negative,-1
+깊다 않다,food,negative,-1
+고기 아쉽다,food,negative,-1
+진하다 않다,food,negative,-1
+부드럽다 않다,food,negative,-1
+감자탕 맛없다,food,negative,-2
+국물 텁텁하다,food,negative,-1
+간 세다,food,negative,-1
+간 약하다,food,negative,-1
+반찬 없다,food,negative,-1
+메뉴 없다,food,negative,-1
+약간 짜다,food,negative,-1
+질리다,food,negative,-2
+직원 친절하다,service,positive,1
+대기 없이,service,positive,1
+사장 친절하다,service,positive,1
+정말 친절하다,service,positive,1
+서비스 좋다,service,positive,1
+주문 빠르다,service,positive,1
+포장 추천,service,positive,1
+설명 자세하다,service,positive,1
+대처 좋다,service,positive,1
+친절하다 않다,service,negative,-1
+직원 불친절하다,service,negative,-2
+웨이팅 길다,service,negative,-1
+서비스 별로,service,negative,-1
+빠르다 않다,service,negative,-1
+대기 별로,service,negative,-1
+대기 길다,service,negative,-1
+사장 불친절하다,service,negative,-2
+설명 부족하다,service,negative,-1
+대처 별로,service,negative,-1
+설명 없다,service,negative,-1
+좋다,service,positive,2
+친절하다,service,positive,2
+오래오래,service,positive,2
+서비스,service,positive,2
+번창,service,positive,2
+전설,service,positive,2
+도전,service,positive,1
+감사,service,positive,2
+조만간,service,positive,1
+대박나다,service,positive,2
+감사하다,service,positive,2
+바쁘다,service,negative,-2
+대충,service,negative,-2
+이상하다,service,negative,-1
+굳이,service,negative,-2
+푸대접,service,negative,-2
+안좋다,service,negative,-2
+쫓다,service,negative,-2
+불편하다,service,negative,-2
+불친절,service,negative,-2
+엉망,service,negative,-2
+상식,service,negative,-2
+심하다,service,negative,-2
+교육,service,negative,-1
+불가,service,negative,-2
+나쁘다,service,negative,-2
+희한하다,service,negative,-2
+싫어지다,service,negative,-2
+운빨,service,negative,-2
+투덜대다,service,negative,-2
+혼잡하다,service,negative,-2
+사과,service,negative,-1
+죄송하다,service,negative,-2
+망치다,service,negative,-2
+입맛,service,negative,-2
+떨어지다,service,negative,-2
+플레인,service,negative,-2
+신경질,service,negative,-2
+불쾌하다,service,negative,-2
+안되다,service,negative,-2
+더럽다,service,negative,-2
+어렵다,service,negative,-2
+그냥,service,negative,-1
+당황,service,negative,-2
+급하다,service,negative,-2
+시큰둥하다,service,negative,-2
+최악,service,negative,-2
+던지다,service,negative,-2
+별로,service,negative,-2
+다만,service,negative,-2
+근데,service,negative,-2
+지저분하다,service,negative,-2
+행주,service,negative,-1
+쓴소리,service,negative,-2
+미안하다,service,negative,-2
+거절,service,negative,-2
+신고,service,negative,-2
+낄낄대다,service,negative,-2
+공산주의,service,negative,-1
+잡치다,service,negative,-2
+에바,service,negative,-2
+소진,service,negative,-2
+독촉,service,negative,-2
+뉘앙스,service,negative,-2
+싸가지,service,negative,-2
+개판,service,negative,-2
+태도,service,negative,-2
+어이없다,service,negative,-2
+가성,price,positive,2
+뽐내다,price,positive,2
+저렴,price,positive,2
+싸다,price,positive,2
+착하다,price,positive,2
+저렴하다,price,positive,2
+비싸다,price,negative,-2
+가격 착하다,price,positive,1
+가격 저렴하다,price,positive,1
+가격 괜찮다,price,positive,1
+가격 싸다,price,positive,1
+가격 좋다,price,positive,1
+가성비 미쳤다,price,positive,2
+돈값 하다,price,positive,1
+가격 비싸다,price,negative,-1
+가격 사악하다,price,negative,-2
+저렴하다 않다,price,negative,-1
+싸다 않다,price,negative,-1
+가성비 떨어지다,price,negative,-1
+돈값 못하다,price,negative,-2
+엄청 비싸다,price,negative,-2
+분위기 좋다,atmosphere,positive,1
+매장 넓다,atmosphere,positive,1
+매장 깔끔하다,atmosphere,positive,1
+청결하다,atmosphere,positive,1
+분위기 깔끔하다,atmosphere,positive,1
+시끄럽다 않다,atmosphere,positive,1
+매장 쾌적하다,atmosphere,positive,1
+매장 깨끗하다,atmosphere,positive,1
+자리 넓다,atmosphere,positive,1
+내부 넓다,atmosphere,positive,1
+인테리어 깔끔하다,atmosphere,positive,1
+내부 깔끔하다,atmosphere,positive,1
+공간 넓다,atmosphere,negative,1
+분위기 아늑하다,atmosphere,negative,1
+데이트 좋다,atmosphere,negative,1
+인테리어 좋다,atmosphere,negative,1
+데이트 추천,atmosphere,negative,1
+분위기 편하다,atmosphere,negative,1
+테이블 넓다,atmosphere,negative,1
+넓다 않다,atmosphere,negative,-1
+위생 별로,atmosphere,negative,-1
+자리 불편하다,atmosphere,negative,-2
+깨끗하다 않다,atmosphere,negative,-1
+자리 좁다,atmosphere,negative,-1
+위생 안좋다,atmosphere,negative,-1
+공간 좁다,atmosphere,negative,-1
+공간 협소하다,atmosphere,negative,-1
+자리 없다,atmosphere,negative,-1
+조용하다,atmosphere,positive,1
+보람,atmosphere,positive,2
+즐겁다,atmosphere,positive,2
+활기,atmosphere,positive,2
+행복,atmosphere,positive,2
+금방,atmosphere,positive,1
+추억,atmosphere,positive,1
+딱좋다,atmosphere,positive,2
+깨끗하다,atmosphere,positive,2
+길다,atmosphere,negative,-1
+덥다,atmosphere,negative,-2
+벌레,atmosphere,negative,-2
+시끄럽다,atmosphere,negative,-2
+북적,atmosphere,negative,-1
+정신,atmosphere,negative,-1
+단점,atmosphere,negative,-2
+고성방가,atmosphere,negative,-2
+협소,atmosphere,negative,-2
+끈적,atmosphere,negative,-2
+혼잡,atmosphere,negative,-2
+삿대질,atmosphere,negative,-2
+파리,atmosphere,negative,-2
+답답하다,atmosphere,negative,-2
+바퀴벌레,atmosphere,negative,-2
+부적합,atmosphere,negative,-2
+너무 좋다,food,positive,1
+정말 맛있다,food,positive,1
+너무 친절하다,food,positive,1
+넓다,food,positive,1
+강추,food,positive,2
+만족하다,food,positive,1
+든든하다,food,positive,1
+대박,food,positive,2
+쾌적하다,food,positive,1
+친절,food,positive,1
+맛있다 좋다,food,positive,1
+완벽하다,food,positive,2
+정말 좋다,food,positive,1
+엄청나다,food,positive,1
+나쁘다 않다,food,positive,1
+엄청 맛있다,food,positive,1
+완전 맛있다,food,positive,1
+신선하다 맛있다,food,positive,1
+너무 부드럽다,food,positive,1
+완전 추천,food,positive,2
+엄청 친절하다,food,positive,1
+진짜 최고,food,positive,2
+너무 깔끔하다,food,positive,1
+엄청 부드럽다,food,positive,1
+너무 편하다,food,positive,1
+진짜 좋다,food,positive,1
+너무 만족스럽다,food,positive,1
+담백하다 맛있다,food,positive,1
+너무 만족하다,food,positive,1
+맛있다 깔끔하다,food,positive,1
+정말 깔끔하다,food,positive,1
+고소하다 맛있다,food,positive,1
+진짜 맛집,food,positive,1
+맛있다 강추,food,positive,2
+진짜 부드럽다,food,positive,1
+진짜 존맛,food,positive,2
+정말 최고,food,positive,2
+매우 친절하다,food,positive,1
+매우 좋다,food,positive,1
+정말 부드럽다,food,positive,1
+맛있다 최고,food,positive,2
+꿀맛,food,positive,1
+매우 맛있다,food,positive,1
+엄청 좋다,food,positive,1
+신선하다 좋다,food,positive,1
+완전 친절하다,food,positive,1
+엄청 넓다,food,positive,1
+맛있다 맛있다,food,positive,1
+짱짱,food,positive,1
+정말 만족스럽다,food,positive,1
+완전 좋다,food,positive,1
+완전 강추,food,positive,2
+매우 만족,food,positive,1
+완전 만족,food,positive,1
+진짜 깔끔하다,food,positive,1
+완전 만족하다,food,positive,1
+진짜 추천,food,positive,1
+성공하다,food,positive,1
+존맛탱,food,positive,2
+너무 추천,food,positive,1
+담백하다 좋다,food,positive,1
+담백하다 깔끔하다,food,positive,1
+매우 만족하다,food,positive,1
+너무 맛집,food,positive,1
+진짜 강추,food,positive,2
+고소하다 부드럽다,food,positive,1
+진짜 신선하다,food,positive,1
+너무 고소하다,food,positive,1
+맛있다 괜찮다,food,positive,1
+매우 훌륭하다,food,positive,2
+완전 최고,food,positive,2
+너무 신선하다,food,positive,1
+엄청 신선하다,food,positive,1
+너무 정갈하다,food,positive,1
+너무 괜찮다,food,positive,1
+아쉽다 않다,food,positive,1
+매우 부드럽다,food,positive,1
+너무 깨끗하다,food,positive,1
+기다림 없이,food,positive,1
+정말 추천,food,positive,1
+진짜 친절하다,food,positive,1
+정말 만족하다,food,positive,1
+완전 맛집,food,positive,1
+엄청 고소하다,food,positive,1
+정말 신선하다,food,positive,1
+고소하다 좋다,food,positive,1
+맛있다 부드럽다,food,positive,1
+정말 고소하다,food,positive,1
+매우 추천,food,positive,1
+추천드립니다,food,positive,1
+재방문 예정,food,positive,2
+또 갈게요,food,positive,2
+아쉽다,food,negative,-1
+불친절하다,food,negative,-2
+늦다,food,negative,-1
+좁다,food,negative,-1
+실망,food,negative,-2
+너무 불친절하다,food,negative,-2
+실망하다,food,negative,-2
+비추다,food,negative,-2
+좋다 않다,food,negative,-1
+짜증,food,negative,-1
+딱딱하다,food,negative,-1
+조금 아쉽다,food,negative,-1
+그닥,food,negative,-1
+너무 시끄럽다,food,negative,-1
+아쉬움,food,negative,-1
+너무 비싸다,food,negative,-1
+기분 안좋다,food,negative,-2
+너무 짜다,food,negative,-1
+느리다,food,negative,-1
+너무 별로,food,negative,-1
+너무 싱겁다,food,negative,-1
+불만,food,negative,-1
+너무 불쾌하다,food,negative,-2
+맛있다 짜다,food,negative,-1
+너무 아쉽다,food,negative,-1
+너무 좁다,food,negative,-1
+정말 불친절하다,food,negative,-2
+그다지,food,negative,-1
+짜증나다,food,negative,-1
+조금 늦다,food,negative,-1
+짜다 맛있다,food,negative,-1
+너무 불편하다,food,negative,-2
+정말 최악,food,negative,-2
+너무 맛없다,food,negative,-2
+너무 맵다,food,negative,-1
+너무 불친절,food,negative,-1
+너무 더럽다,food,negative,-1
+조금 비싸다,food,negative,-1
+불만족,food,negative,-2
+눅눅하다,food,negative,-1
+조금 시끄럽다,food,negative,-1
+짜다 아쉽다,food,negative,-1
+너무 아깝다,food,negative,-1
+리뷰 안좋다,food,negative,-2
+엄청 시끄럽다,food,negative,-1
+조금 짜다,food,negative,-1
+살짝 아쉽다,food,negative,-1
+느끼하다 맛있다,food,negative,-1
+진짜 별로,food,negative,-1
+완전 별로,food,negative,-2
+조금 불편하다,food,negative,-1
+거슬리다,food,negative,-1
+대접받다,food,negative,2
+말아먹다,food,negative,-2
+모르다,food,negative,-1
+불다,food,negative,-1
+잡아끌다,food,negative,-1
+조심하다,food,negative,-1
+좋아지다,food,negative,1
+쫓겨나다,food,negative,-2
+쫓아내다,food,negative,-2
+찌푸리다,food,negative,-2
+차다,food,negative,-1
+화나다,food,negative,-1
+감칠맛,food,negative,1
+강강추,food,negative,2
+강매,food,negative,-1
+강조,food,negative,2
+강추입니듀,food,negative,2
+강추추추,food,negative,2
+강츄,food,negative,2
+개꿀띠,food,negative,2
+개꿀맛,food,negative,2
+개무시,food,negative,-2
+개이득,food,negative,2
+개잡침,food,negative,-2
+개존맛임,food,negative,2
+갸꿀,food,negative,2
+거른다,food,negative,-2
+걱정,food,negative,-1
+건성건성,food,negative,-1
+고슬,food,negative,1
+고슬고슬,food,negative,1
+고슬밥,food,negative,1
+구역질,food,negative,-2
+구우우우욷,food,negative,2
+국물미첬,food,negative,2
+굿굿굿,food,negative,2
+굿임,food,negative,2
+금상첨화,food,negative,2
+깔끔햐,food,negative,1
+깨끗,food,negative,1
+꺼드럭거리,food,negative,-1
+껄끄럽네,food,negative,-1
+꼬돌,food,negative,1
+꼬들꼬들,food,negative,1
+꼬들밥,food,negative,1
+꼬들살,food,negative,1
+꼬들하,food,negative,1
+꼬들함,food,negative,1
+꼬소,food,negative,1
+꼬소하,food,negative,1
+꼬소한향,food,negative,1
+꼬소해,food,negative,1
+넘맛잇엉,food,negative,2
+네일,food,negative,-1
+노골,food,negative,-1
+노답,food,negative,-2
+노맛,food,negative,-2
+노파,food,negative,-1
+느글거렸던,food,negative,-1
+느좋,food,negative,2
+다양,food,negative,1
+다행,food,negative,1
+대조,food,negative,1
+대표,food,negative,2
+더욱더,food,negative,-1
+돈맛,food,negative,1
+돋궈주네,food,negative,1
+돌이,food,negative,2
+동결,food,negative,2
+두툼,food,negative,1
+뒷다리,food,negative,1
+드감,food,negative,1
+등심,food,negative,2
+리지,food,negative,2
+마시슴,food,negative,2
+마싯슴,food,negative,2
+마싰어,food,negative,2
+마이너스,food,negative,-1
+마크,food,negative,2
+만원의행복,food,negative,2
+만족감,food,negative,2
+맘에듬,food,negative,2
+맛깔,food,negative,2
+맛나,food,negative,2
+맛난,food,negative,2
+맛남,food,negative,2
+맛낫,food,negative,2
+맛닜,food,negative,2
+맛닜어,food,negative,2
+맛업슨,food,negative,-2
+맛읶어,food,negative,2
+맛잇댜,food,negative,2
+맛잇슴,food,negative,2
+맛있슴,food,negative,2
+맛있슴미,food,negative,2
+맛있엇구,food,negative,2
+맛있엇러,food,negative,2
+맛있엇습니,food,negative,2
+맛잏어,food,negative,2
+맛잏었어,food,negative,2
+맜있어,food,negative,2
+매콤쫄깃,food,negative,1
+맹탕,food,negative,-1
+맹탕무맛임,food,negative,-1
+명불허전,food,negative,2
+못참죵,food,negative,1
+몽실몽실,food,negative,1
+무맛,food,negative,-1
+미스테리,food,negative,-1
+미챳사,food,negative,2
+미쳣으,food,negative,2
+미쳤슴,food,negative,2
+미쳤쥬,food,negative,2
+미츳다,food,negative,2
+밋있는집,food,negative,2
+밍밍,food,negative,-1
+밍숭,food,negative,-1
+밍숭맹숭,food,negative,-1
+밍숭맹숭해,food,negative,-1
+바삭,food,negative,1
+반한,food,negative,-2
+밴드,food,negative,-2
+번은,food,negative,-2
+벌집,food,negative,1
+별루,food,negative,-1
+부족,food,negative,-1
+부족함,food,negative,-1
+불맛,food,negative,1
+불맛나,food,negative,1
+불친철,food,negative,-2
+불쾌감,food,negative,-2
+불편,food,negative,-2
+불호,food,negative,-2
+산뜻,food,negative,2
+서고,food,negative,1
+선샤인,food,negative,1
+성인,food,negative,2
+셔틀,food,negative,2
+손가락,food,negative,2
+솔직,food,negative,-1
+시들시들,food,negative,-1
+식구,food,negative,1
+신나요,food,negative,1
+신선,food,negative,1
+신세계,food,negative,1
+싱싱,food,negative,1
+싸인,food,negative,2
+쌔지않,food,negative,1
+아숩,food,negative,-2
+안정감,food,negative,1
+압권,food,negative,2
+애인픽,food,negative,2
+야채,food,negative,2
+여러,food,negative,2
+열풍,food,negative,2
+오리,food,negative,2
+완맛입니,food,negative,2
+완맛탱,food,negative,2
+완벽,food,negative,2
+왕맛,food,negative,2
+우리,food,negative,2
+원망,food,negative,-2
+원산지,food,negative,1
+원픽,food,negative,1
+일품,food,negative,2
+자극,food,negative,-1
+재방뭉,food,negative,2
+재방뮨,food,negative,2
+적당,food,negative,1
+정겨운,food,negative,1
+정막,food,negative,2
+정성,food,negative,1
+젛구,food,negative,2
+젛아,food,negative,2
+젛았습니,food,negative,2
+젤맛,food,negative,2
+젤맛남,food,negative,2
+조화로,food,negative,2
+조화로움,food,negative,2
+존마턍,food,negative,2
+존막핑,food,negative,2
+존맛임,food,negative,2
+존맛쿵,food,negative,2
+좋댜,food,negative,2
+좋아욤,food,negative,2
+좋앗숩니,food,negative,2
+좋앙,food,negative,2
+좐맛임,food,negative,2
+죤맛,food,negative,2
+죤맛탱,food,negative,2
+쥑임,food,negative,2
+즇네,food,negative,2
+즇아,food,negative,2
+즇았어,food,negative,2
+지도,food,negative,2
+질겨,food,negative,-1
+질겻어,food,negative,-1
+쩔어요,food,negative,2
+쫀득,food,negative,1
+쫀득쫀득,food,negative,1
+쫀득쫀득하,food,negative,1
+쫀득하,food,negative,1
+쫀득한데,food,negative,1
+쫀득함,food,negative,1
+쫀득해,food,negative,1
+쫀든쫀든한,food,negative,1
+쫀맛,food,negative,2
+쫀쫀,food,negative,1
+쫄깃쫄깃,food,negative,1
+쫄깃쫄깃하,food,negative,1
+쫄깃쫄깃함,food,negative,1
+쫄깃쫄깃해,food,negative,1
+쫄깃하,food,negative,1
+쫄깃한것,food,negative,1
+쫄깃한데,food,negative,1
+쫄깃함,food,negative,1
+쫄깃합니,food,negative,1
+쫄깃해,food,negative,1
+쫄낏하,food,negative,1
+쫄면,food,negative,1
+쫜득쫜득,food,negative,1
+쭈왑쭈왑,food,negative,1
+쮝여줌,food,negative,2
+찰떡,food,negative,1
+청량,food,negative,1
+청량감,food,negative,1
+청소,food,negative,1
+체고,food,negative,2
+초강추,food,negative,2
+촉촉,food,negative,1
+촉촉촉,food,negative,1
+촘촘하,food,negative,1
+촘촘해,food,negative,1
+촣았어,food,negative,2
+최강,food,negative,2
+최고다,food,negative,2
+쵝오,food,negative,2
+쵹쵹,food,negative,1
+쵼맛탱,food,negative,2
+츄룹,food,negative,1
+친절햐,food,negative,2
+친철,food,negative,2
+친철함,food,negative,2
+친철해,food,negative,2
+텁텁,food,negative,-2
+텁텁하,food,negative,-2
+텁텁함,food,negative,-2
+텁텁해짐,food,negative,-2
+텁텁헀습니,food,negative,-2
+테이크아웃,food,negative,2
+투머치,food,negative,-2
+툴툴,food,negative,-2
+특별,food,negative,1
+폭룡적,food,negative,2
+하이,food,negative,2
+한계,food,negative,1
+한참,food,negative,2
+한텐,food,negative,-2
+할인,food,negative,1
+행복감,food,negative,2
+호패,food,negative,2
+후반,food,negative,-2
+훌룡,food,negative,2
+훌륭,food,negative,2
+휼룡,food,negative,2
+흐물텅,food,negative,-1
+흡족,food,negative,2
+힐링,food,negative,1
+골고루,food,negative,1
+나긋나긋,food,negative,1
+냠냠,food,negative,1
+널찍널찍,food,negative,1
+니글니글,food,negative,-1
+다닥다닥,food,negative,-1
+대놓고,food,negative,-1
+두근두근,food,negative,1
+들쑥날쑥,food,negative,-1
+바삭바삭,food,negative,1
+보들보들,food,negative,1
+빠릿빠릿,food,negative,1
+설렁설렁,food,negative,-1
+쌩쌩,food,negative,-1
+아삭아삭,food,negative,1
+어영부영,food,negative,-1
+오독오독,food,negative,1
+와장창,food,negative,-1
+탱글탱글,food,negative,1
+포슬포슬,food,negative,1
+가난하다,food,negative,-1
+가득하다,food,negative,1
+각박하다,food,negative,-1
+간결하다,food,negative,1
+강력하다,food,negative,1
+개운하다,food,negative,1
+거뜬하다,food,negative,1
+거북하다,food,negative,-1
+걸쭉하다,food,negative,1
+고급스럽다,food,negative,2
+고맙다,food,negative,2
+고슬고슬하다,food,negative,1
+곤란하다,food,negative,-1
+공평하다,food,negative,1
+괘씸하다,food,negative,-2
+괴롭다,food,negative,-1
+굉장하다,food,negative,2
+구리다,food,negative,-2
+구수하다,food,negative,1
+귀엽다,food,negative,1
+귀찮다,food,negative,-1
+귀하다,food,negative,1
+극진하다,food,negative,1
+기괴하다,food,negative,-1
+기막히다,food,negative,-1
+기쁘다,food,negative,2
+까다롭다,food,negative,-1
+까칠하다,food,negative,-1
+꼬들꼬들하다,food,negative,1
+꼬이다,food,negative,-1
+꼼꼼하다,food,negative,1
+꾸준하다,food,negative,1
+날카롭다,food,negative,-1
+낡다,food,negative,-1
+남다르다,food,negative,1
+낭비하다,food,negative,-1
+냉정하다,food,negative,-1
+너무하다,food,negative,-1
+널찍하다,food,negative,1
+능숙하다,food,negative,1
+다정하다,food,negative,1
+다행하다,food,negative,1
+단조롭다,food,negative,-1
+달착지근하다,food,negative,1
+당혹스럽다,food,negative,-1
+더부룩하다,food,negative,-1
+도톰하다,food,negative,1
+드럽다,food,negative,-2
+듬직하다,food,negative,1
+따갑다,food,negative,-1
+따끈하다,food,negative,1
+따뜻하다,food,negative,1
+따스하다,food,negative,1
+뛰어나다,food,negative,2
+뜨뜻하다,food,negative,1
+마지못하다,food,negative,-1
+맑다,food,negative,1
+맛깔나다,food,negative,2
+망하다,food,negative,-2
+맹맹하다,food,negative,-1
+멀다,food,negative,-1
+멀쩡하다,food,negative,1
+멋있다,food,negative,1
+멋지다,food,negative,2
+멍청하다,food,negative,-1
+명확하다,food,negative,1
+몰지각하다,food,negative,-1
+무뚝뚝하다,food,negative,-1
+무례하다,food,negative,-2
+무리다,food,negative,-1
+무섭다,food,negative,-1
+무심하다,food,negative,-1
+무안하다,food,negative,-1
+물컹하다,food,negative,-1
+묽다,food,negative,-1
+미끄럽다,food,negative,-1
+미미하다,food,negative,-1
+미흡하다,food,negative,-1
+민망하다,food,negative,-1
+밉다,food,negative,-1
+밋밋하다,food,negative,-1
+바삭바삭하다,food,negative,1
+박하다,food,negative,-1
+반갑다,food,negative,1
+배고프다,food,negative,-1
+보들보들하다,food,negative,1
+복잡하다,food,negative,-1
+부담스럽다,food,negative,-1
+부들부들하다,food,negative,1
+불가능하다,food,negative,-1
+불가하다,food,negative,-1
+불결하다,food,negative,-2
+불안하다,food,negative,-1
+불필요하다,food,negative,-1
+빈약하다,food,negative,-1
+빡치다,food,negative,-2
+뻣뻣하다,food,negative,-1
+뿌듯하다,food,negative,2
+사납다,food,negative,-1
+사악하다,food,negative,-2
+산뜻하다,food,negative,1
+산만하다,food,negative,-1
+상냥하다,food,negative,2
+상쾌하다,food,negative,2
+새롭다,food,negative,1
+생소하다,food,negative,-1
+서운하다,food,negative,-1
+서툴다,food,negative,-1
+설레다,food,negative,1
+섬세하다,food,negative,1
+섭하다,food,negative,-1
+세련되다,food,negative,2
+소박하다,food,negative,1
+소중하다,food,negative,2
+소홀하다,food,negative,-1
+속상하다,food,negative,-1
+솔직하다,food,negative,-1
+수월하다,food,negative,1
+순하다,food,negative,1
+슬프다,food,negative,-2
+시끌벅적하다,food,negative,-1
+시들하다,food,negative,-1
+신나다,food,negative,2
+신비롭다,food,negative,2
+신속하다,food,negative,1
+실패하다,food,negative,-2
+실하다,food,negative,1
+싫다,food,negative,-2
+싫어하다,food,negative,-2
+심심하다,food,negative,-1
+싱그럽다,food,negative,1
+싸늘하다,food,negative,-1
+쌉쌀하다,food,negative,1
+쏠쏠하다,food,negative,1
+아늑하다,food,negative,1
+아담하다,food,negative,1
+아프다,food,negative,-1
+안락하다,food,negative,1
+안쓰럽다,food,negative,-1
+안일하다,food,negative,-1
+안타깝다,food,negative,-1
+알맞다,food,negative,1
+암담하다,food,negative,-2
+앙상하다,food,negative,-1
+0하다,food,negative,-1
+애처롭다,food,negative,-1
+야들야들하다,food,negative,1
+야박하다,food,negative,-1
+약하다,food,negative,-1
+어색하다,food,negative,-1
+어설프다,food,negative,-1
+어수선하다,food,negative,-1
+어정쩡하다,food,negative,-1
+어중간하다,food,negative,-1
+어지간하다,food,negative,-1
+억세다,food,negative,-1
+억울하다,food,negative,-1
+억지스럽다,food,negative,-1
+언짢다,food,negative,-1
+역겹다,food,negative,-2
+예민하다,food,negative,-1
+예쁘다,food,negative,1
+오동통하다,food,negative,1
+올바르다,food,negative,1
+옳다,food,negative,1
+완전하다,food,negative,1
+왠만하다,food,negative,1
+요란하다,food,negative,-1
+우악스럽다,food,negative,-1
+원활하다,food,negative,1
+웬만하다,food,negative,1
+위대하다,food,negative,2
+위험하다,food,negative,-1
+유머러스하다,food,negative,2
+유치하다,food,negative,-1
+유쾌하다,food,negative,2
+유해하다,food,negative,-1
+은은하다,food,negative,1
+의심스럽다,food,negative,-1
+이롭다,food,negative,2
+이쁘다,food,negative,1
+자연스럽다,food,negative,1
+자작하다,food,negative,1
+잔잔하다,food,negative,1
+잘생기다,food,negative,2
+재미있다,food,negative,2
+재밌다,food,negative,1
+적절하다,food,negative,1
+적합하다,food,negative,1
+정겹다,food,negative,2
+정성스럽다,food,negative,1
+정중하다,food,negative,1
+정직하다,food,negative,1
+정확하다,food,negative,1
+조화롭다,food,negative,1
+좋아하다,food,negative,1
+지루하다,food,negative,-1
+진부하다,food,negative,-1
+진솔하다,food,negative,1
+진실되다,food,negative,1
+진하다,food,negative,1
+쫄깃,food,negative,1
+찜찜하다,food,negative,-1
+찝찝하다,food,negative,-1
+찬란하다,food,negative,2
+찰지다,food,negative,1
+창피하다,food,negative,-1
+천하다,food,negative,-1
+철저하다,food,negative,1
+청량하다,food,negative,1
+초라하다,food,negative,-1
+출중하다,food,negative,2
+춥다,food,negative,-1
+친근하다,food,negative,2
+칼칼하다,food,negative,1
+큼직큼직하다,food,negative,1
+탁월하다,food,negative,2
+탁하다,food,negative,-1
+탄탄하다,food,negative,1
+탱글탱글하다,food,negative,1
+탱탱하다,food,negative,1
+토실토실하다,food,negative,1
+특별하다,food,negative,1
+특출나다,food,negative,2
+튼실하다,food,negative,1
+패배하다,food,negative,-1
+편리하다,food,negative,1
+편안하다,food,negative,1
+편찮다,food,negative,-1
+포근하다,food,negative,1
+푸근하다,food,negative,1
+푸석하다,food,negative,-1
+풍부하다,food,negative,2
+풍족하다,food,negative,1
+피곤하다,food,negative,-1
+필요없다,food,negative,-1
+행복하다,food,negative,2
+헷갈리다,food,negative,-1
+현명하다,food,negative,2
+화끈하다,food,negative,1
+환장하다,food,negative,-1
+활기차다,food,negative,2
+황당하다,food,negative,-1
+황홀하다,food,negative,2
+후회되다,food,negative,-2
+휼륭하다,food,negative,2
+흐뭇하다,food,negative,2
+흔쾌하다,food,negative,1
+힘겹다,food,negative,-1
+큼직하다,food,negative,1

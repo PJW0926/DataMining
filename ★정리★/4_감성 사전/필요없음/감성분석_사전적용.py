@@ -9,7 +9,7 @@ from collections import defaultdict
 BASE_DIR = Path(__file__).resolve().parent
 
 review_file = BASE_DIR / "final_high_trust_reviews_pos.csv"
-dict_file = BASE_DIR / "sentiment_dict_분석용.csv"
+dict_file = BASE_DIR / "sentiment_dict_분석용_최종_0점제거_소수점제거_중복제거.csv"
 
 output_file = BASE_DIR / "final_high_trust_reviews_category_sentiment.csv"
 platform_output = BASE_DIR / "platform_category_sentiment_summary.csv"
