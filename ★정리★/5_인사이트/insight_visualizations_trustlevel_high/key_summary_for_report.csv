@@ -1,4 +1,0 @@
-﻿analysis_scope,store_count,total_review_count_sum,high_trust_review_count_sum,high_trust_ratio_total,store_avg_all_sentiment_star,store_avg_high_sentiment_star,store_avg_score_change,score_up_store_count,score_down_store_count,rank_changed_store_count,rank_changed_store_ratio,avg_abs_rank_change,store_avg_kakao_all_rating,store_avg_kakao_high_rating,store_avg_kakao_rating_change,kakao_rating_up_store_count,kakao_rating_down_store_count
-all,24,6788,4268,62.876,3.792,3.935,0.145,22,2,14,58.333,0.75,3.857,3.719,-0.139,6.0,18.0
-naver,24,4082,2786,68.251,3.935,4.069,0.133,23,1,16,66.667,1.083,,,,,
-kakao,24,2706,1482,54.767,3.523,3.629,0.106,16,5,16,66.667,0.917,3.857,3.719,-0.139,6.0,18.0

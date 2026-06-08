@@ -5,7 +5,7 @@ from pathlib import Path
 # =========================================================
 # 0. 한글 폰트 설정
 # =========================================================
-# Windows 기준
+
 plt.rcParams["font.family"] = "Malgun Gothic"
 plt.rcParams["axes.unicode_minus"] = False
 
@@ -21,8 +21,12 @@ input_files = {
     "kakao": BASE_DIR / "store_rank_change_all_vs_hightrust_kakao_trustlevel_high.csv",
 }
 
-OUTPUT_DIR = BASE_DIR / "insight_visualizations_trustlevel_high"
+OUTPUT_DIR = BASE_DIR / "insight_visualizations_trustlevel_high_v2"
 OUTPUT_DIR.mkdir(exist_ok=True)
+
+# 변화 없음 판정 기준
+# score_change가 ±0.005 이하면 변화 없음으로 처리
+EPS = 0.005
 
 # =========================================================
 # 2. 데이터 불러오기
@@ -71,7 +75,7 @@ for scope, df in dfs.items():
 print()
 
 # =========================================================
-# 3. 공통 시각화 함수
+# 3. 공통 함수
 # =========================================================
 
 def save_bar(df, x_col, y_col, title, xlabel, ylabel, filename):
@@ -149,12 +153,21 @@ def save_hist(df, col, title, xlabel, filename, bins=10):
 def save_grouped_bar(summary_df, metric_all_col, metric_high_col, title, ylabel, filename):
     plot_df = summary_df.copy()
     x = range(len(plot_df))
-
     width = 0.35
 
     plt.figure(figsize=(8, 5))
-    plt.bar([i - width / 2 for i in x], plot_df[metric_all_col], width=width, label="전체 리뷰 기준")
-    plt.bar([i + width / 2 for i in x], plot_df[metric_high_col], width=width, label="high 리뷰 기준")
+    plt.bar(
+        [i - width / 2 for i in x],
+        plot_df[metric_all_col],
+        width=width,
+        label="전체 리뷰 기준"
+    )
+    plt.bar(
+        [i + width / 2 for i in x],
+        plot_df[metric_high_col],
+        width=width,
+        label="high 리뷰 기준"
+    )
 
     plt.xticks(list(x), plot_df["analysis_scope"])
     plt.title(title)
@@ -176,6 +189,10 @@ def save_grouped_bar(summary_df, metric_all_col, metric_high_col, title, ylabel,
 summary_rows = []
 
 for scope, df in dfs.items():
+    score_up = (df["score_change"] > EPS).sum()
+    score_down = (df["score_change"] < -EPS).sum()
+    score_same = (df["score_change"].abs() <= EPS).sum()
+
     row = {
         "analysis_scope": scope,
         "store_count": len(df),
@@ -183,15 +200,14 @@ for scope, df in dfs.items():
         "high_trust_review_count_sum": df["high_trust_review_count"].sum(),
         "high_trust_ratio_total": df["high_trust_review_count"].sum() / df["total_review_count"].sum() * 100,
 
-        # 식당별 평균 기준
         "store_avg_all_sentiment_star": df["all_avg_sentiment_star"].mean(),
         "store_avg_high_sentiment_star": df["high_avg_sentiment_star"].mean(),
         "store_avg_score_change": df["score_change"].mean(),
         "store_avg_abs_score_change": df["score_change"].abs().mean(),
 
-        "score_up_store_count": (df["score_change"] > 0).sum(),
-        "score_down_store_count": (df["score_change"] < 0).sum(),
-        "score_same_store_count": (df["score_change"] == 0).sum(),
+        "score_up_store_count": score_up,
+        "score_down_store_count": score_down,
+        "score_same_store_count": score_same,
 
         "rank_changed_store_count": (df["rank_change"] != 0).sum(),
         "rank_changed_store_ratio": (df["rank_change"] != 0).mean() * 100,
@@ -208,9 +224,9 @@ for scope, df in dfs.items():
         row["store_avg_kakao_high_rating"] = rating_df["kakao_high_avg_rating"].mean()
         row["store_avg_kakao_rating_change"] = rating_df["kakao_rating_change"].mean()
         row["store_avg_abs_kakao_rating_change"] = rating_df["kakao_rating_change"].abs().mean()
-        row["kakao_rating_up_store_count"] = (rating_df["kakao_rating_change"] > 0).sum()
-        row["kakao_rating_down_store_count"] = (rating_df["kakao_rating_change"] < 0).sum()
-        row["kakao_rating_same_store_count"] = (rating_df["kakao_rating_change"] == 0).sum()
+        row["kakao_rating_up_store_count"] = (rating_df["kakao_rating_change"] > EPS).sum()
+        row["kakao_rating_down_store_count"] = (rating_df["kakao_rating_change"] < -EPS).sum()
+        row["kakao_rating_same_store_count"] = (rating_df["kakao_rating_change"].abs() <= EPS).sum()
 
     summary_rows.append(row)
 
@@ -226,7 +242,7 @@ print("요약표 저장:", summary_output)
 print("통합 상세표 저장:", detail_output)
 print()
 print("=== 분석 범위별 요약 ===")
-print(summary_df.to_string(index=False))
+print(summary_df.round(3).to_string(index=False))
 print()
 
 # =========================================================
@@ -298,24 +314,47 @@ save_bar(
     "06_scope_high_trust_ratio.png"
 )
 
-# 5-7. 감성별점 상승/하락 음식점 수
+# 5-7. 감성별점 상승/하락/변화 없음 음식점 수
 score_count_df = summary_df[
-    ["analysis_scope", "score_up_store_count", "score_down_store_count"]
+    [
+        "analysis_scope",
+        "score_up_store_count",
+        "score_down_store_count",
+        "score_same_store_count"
+    ]
 ].copy()
 
 x = range(len(score_count_df))
-width = 0.35
+width = 0.25
 
 plt.figure(figsize=(8, 5))
-plt.bar([i - width / 2 for i in x], score_count_df["score_up_store_count"], width=width, label="상승")
-plt.bar([i + width / 2 for i in x], score_count_df["score_down_store_count"], width=width, label="하락")
+plt.bar(
+    [i - width for i in x],
+    score_count_df["score_up_store_count"],
+    width=width,
+    label="상승"
+)
+plt.bar(
+    list(x),
+    score_count_df["score_down_store_count"],
+    width=width,
+    label="하락"
+)
+plt.bar(
+    [i + width for i in x],
+    score_count_df["score_same_store_count"],
+    width=width,
+    label="변화 없음"
+)
+
 plt.xticks(list(x), score_count_df["analysis_scope"])
-plt.title("분석 범위별 감성별점 상승/하락 음식점 수")
+plt.title("분석 범위별 감성별점 상승/하락/변화 없음 음식점 수")
 plt.xlabel("분석 범위")
 plt.ylabel("음식점 수")
 plt.legend()
 plt.tight_layout()
-path = OUTPUT_DIR / "07_scope_score_up_down_count.png"
+
+path = OUTPUT_DIR / "07_scope_score_up_down_same_count.png"
 plt.savefig(path, dpi=300, bbox_inches="tight")
 plt.close()
 print("저장:", path)
@@ -480,7 +519,6 @@ for scope, df in dfs.items():
 # 7. 카카오 실제 별점 관련 시각화
 # =========================================================
 
-# all 파일에도 카카오 별점 관련 컬럼이 있고, kakao 파일에도 있음
 for scope in ["all", "kakao"]:
     df = dfs[scope].copy()
 
@@ -526,7 +564,7 @@ for scope in ["all", "kakao"]:
     plt.close()
     print("저장:", path)
 
-    # 7-2. 실제 별점 상승 TOP 10
+    # 7-2. 카카오 실제 별점 상승 TOP 10
     rating_up = (
         rating_df.sort_values("kakao_rating_change", ascending=False)
         .head(10)
@@ -542,7 +580,7 @@ for scope in ["all", "kakao"]:
         f"19_{scope}_kakao_rating_up_top10.png"
     )
 
-    # 7-3. 실제 별점 하락 TOP 10
+    # 7-3. 카카오 실제 별점 하락 TOP 10
     rating_down = (
         rating_df.sort_values("kakao_rating_change", ascending=True)
         .head(10)
@@ -579,11 +617,32 @@ for scope in ["all", "kakao"]:
         bins=8
     )
 
+    # 7-6. 카카오 실제 별점 상승/하락/변화 없음 음식점 수
+    rating_up_count = (rating_df["kakao_rating_change"] > EPS).sum()
+    rating_down_count = (rating_df["kakao_rating_change"] < -EPS).sum()
+    rating_same_count = (rating_df["kakao_rating_change"].abs() <= EPS).sum()
+
+    rating_count_df = pd.DataFrame({
+        "change_type": ["상승", "하락", "변화 없음"],
+        "store_count": [rating_up_count, rating_down_count, rating_same_count]
+    })
+
+    plt.figure(figsize=(7, 5))
+    plt.bar(rating_count_df["change_type"], rating_count_df["store_count"])
+    plt.title(f"[{scope}] 카카오 실제 별점 상승/하락/변화 없음 음식점 수")
+    plt.xlabel("변화 유형")
+    plt.ylabel("음식점 수")
+    plt.tight_layout()
+
+    path = OUTPUT_DIR / f"23_{scope}_kakao_rating_up_down_same_count.png"
+    plt.savefig(path, dpi=300, bbox_inches="tight")
+    plt.close()
+    print("저장:", path)
+
 # =========================================================
-# 8. 발표/보고서용 핵심 표 저장
+# 8. 보고서용 표 저장
 # =========================================================
 
-# 8-1. 전체/네이버/카카오별 핵심 지표표
 key_summary_cols = [
     "analysis_scope",
     "store_count",
@@ -595,6 +654,7 @@ key_summary_cols = [
     "store_avg_score_change",
     "score_up_store_count",
     "score_down_store_count",
+    "score_same_store_count",
     "rank_changed_store_count",
     "rank_changed_store_ratio",
     "avg_abs_rank_change",
@@ -606,6 +666,7 @@ extra_rating_cols = [
     "store_avg_kakao_rating_change",
     "kakao_rating_up_store_count",
     "kakao_rating_down_store_count",
+    "kakao_rating_same_store_count",
 ]
 
 key_summary_cols += [col for col in extra_rating_cols if col in summary_df.columns]
@@ -618,7 +679,10 @@ key_summary.to_csv(key_summary_output, index=False, encoding="utf-8-sig")
 
 print("보고서용 핵심 요약표 저장:", key_summary_output)
 
-# 8-2. 범위별 상승/하락 TOP 사례 저장
+# =========================================================
+# 9. 핵심 사례표 저장
+# =========================================================
+
 case_rows = []
 
 for scope, df in dfs.items():
@@ -667,7 +731,7 @@ case_table.to_csv(case_output, index=False, encoding="utf-8-sig")
 print("보고서용 핵심 사례표 저장:", case_output)
 
 # =========================================================
-# 9. 콘솔 핵심 인사이트 자동 출력
+# 10. 콘솔 핵심 인사이트 출력
 # =========================================================
 
 print("\n================ 핵심 인사이트 후보 ================")
@@ -684,8 +748,9 @@ for scope, df in dfs.items():
     avg_high = df["high_avg_sentiment_star"].mean()
     avg_change = df["score_change"].mean()
 
-    score_up_count = (df["score_change"] > 0).sum()
-    score_down_count = (df["score_change"] < 0).sum()
+    score_up_count = (df["score_change"] > EPS).sum()
+    score_down_count = (df["score_change"] < -EPS).sum()
+    score_same_count = (df["score_change"].abs() <= EPS).sum()
 
     rank_changed = (df["rank_change"] != 0).sum()
     rank_changed_ratio = rank_changed / store_count * 100
@@ -697,7 +762,7 @@ for scope, df in dfs.items():
     print(f"- 전체 리뷰 기준 평균 감성별점: {avg_all:.2f}")
     print(f"- high 리뷰 기준 평균 감성별점: {avg_high:.2f}")
     print(f"- 평균 감성별점 변화: {avg_change:+.2f}")
-    print(f"- 감성별점 상승/하락 음식점 수: {score_up_count}개 상승, {score_down_count}개 하락")
+    print(f"- 감성별점 상승/하락/변화 없음 음식점 수: {score_up_count}개 상승, {score_down_count}개 하락, {score_same_count}개 변화 없음")
     print(f"- 순위 변동 음식점 수: {rank_changed}/{store_count}개 ({rank_changed_ratio:.1f}%)")
     print(f"- 평균 순위 변화폭: {avg_abs_rank_change:.2f}계단")
 
@@ -741,8 +806,9 @@ for scope, df in dfs.items():
         avg_rating_high = rating_df["kakao_high_avg_rating"].mean()
         avg_rating_change = rating_df["kakao_rating_change"].mean()
 
-        rating_up_count = (rating_df["kakao_rating_change"] > 0).sum()
-        rating_down_count = (rating_df["kakao_rating_change"] < 0).sum()
+        rating_up_count = (rating_df["kakao_rating_change"] > EPS).sum()
+        rating_down_count = (rating_df["kakao_rating_change"] < -EPS).sum()
+        rating_same_count = (rating_df["kakao_rating_change"].abs() <= EPS).sum()
 
         max_rating_up = rating_df.sort_values("kakao_rating_change", ascending=False).iloc[0]
         max_rating_down = rating_df.sort_values("kakao_rating_change", ascending=True).iloc[0]
@@ -750,7 +816,7 @@ for scope, df in dfs.items():
         print(f"- 카카오 전체 실제 별점 평균: {avg_rating_all:.2f}")
         print(f"- 카카오 high 실제 별점 평균: {avg_rating_high:.2f}")
         print(f"- 카카오 실제 별점 변화: {avg_rating_change:+.2f}")
-        print(f"- 카카오 실제 별점 상승/하락 음식점 수: {rating_up_count}개 상승, {rating_down_count}개 하락")
+        print(f"- 카카오 실제 별점 상승/하락/변화 없음 음식점 수: {rating_up_count}개 상승, {rating_down_count}개 하락, {rating_same_count}개 변화 없음")
 
         print(
             f"- 카카오 실제 별점 상승 최대: {max_rating_up['store_name']} "
