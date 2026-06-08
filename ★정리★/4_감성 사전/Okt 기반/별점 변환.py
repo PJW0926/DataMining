@@ -8,8 +8,8 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 
-input_file = BASE_DIR / "final_high_trust_reviews_category_sentiment.csv"
-output_file = BASE_DIR / "final_high_trust_reviews_with_sentiment_star.csv"
+input_file = BASE_DIR / "final_high_trust_reviews_category_sentiment_v9_token_only.csv"
+output_file = BASE_DIR / "final_high_trust_reviews_with_sentiment_star_v9_token_only_star.csv"
 
 df = pd.read_csv(input_file, encoding="utf-8-sig")
 
@@ -30,7 +30,7 @@ kakao_scores = df.loc[
 # 극단값 영향을 줄이기 위해 5%~95% 분위수 사용
 score_min = kakao_scores.quantile(0.05)
 score_max = kakao_scores.quantile(0.95)
-
+ 
 print("카카오 기준 감성점수 5%:", score_min)
 print("카카오 기준 감성점수 95%:", score_max)
 

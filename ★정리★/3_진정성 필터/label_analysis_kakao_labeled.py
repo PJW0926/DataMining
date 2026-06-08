@@ -20,7 +20,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 # =========================================================
 # Labeled review trust-level analysis
-# - kakao_라벨링_4차.csv 파일 하나를 불러옴
+# - kakao_라벨링_익명화.csv 파일 하나를 불러옴
 # - manual_label과 pred_label을 비교해 정확도/F1/오분류를 평가함
 # - 규칙 기반 진정성 필터의 성능 점검용 코드
 # =========================================================
@@ -34,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 # 라벨링 파일명
 # 이 파일에는 반드시 manual_label 컬럼이 있어야 합니다.
-INPUT_FILE = BASE_DIR / "kakao_라벨링.csv"
+INPUT_FILE = BASE_DIR / "kakao_라벨링_익명화.csv"
 
 # 결과 저장 폴더
 OUTPUT_DIR = BASE_DIR / "result_kakao_labeled"
@@ -71,7 +71,7 @@ def read_csv_safely(file_path):
 if not INPUT_FILE.exists():
     raise FileNotFoundError(
         f"{INPUT_FILE} 파일을 찾을 수 없습니다.\n"
-        f"이 파이썬 파일과 같은 폴더에 kakao_라벨링_4차.csv를 넣어 주세요."
+        f"이 파이썬 파일과 같은 폴더에 kakao_라벨링_익명화.csv를 넣어 주세요."
     )
 
 if INPUT_FILE.suffix.lower() == ".csv":
@@ -171,7 +171,7 @@ HAS_LABEL = (
 if not HAS_LABEL:
     raise ValueError(
         "라벨링용 코드인데 manual_label이 없거나, 값이 비어 있거나, 0/1 두 클래스가 모두 존재하지 않습니다.\n"
-        "kakao_라벨링_4차.csv 파일에 manual_label 컬럼과 0/1 라벨이 있는지 확인해 주세요."
+        "kakao_라벨링_익명화.csv 파일에 manual_label 컬럼과 0/1 라벨이 있는지 확인해 주세요."
     )
 
 if "store_name" not in df.columns:

@@ -20,7 +20,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 # =========================================================
 # Crawling review trust-level analysis
-# - all_크롤링.xlsx 파일 하나를 불러옴
+# - naver_크롤링_익명화.csv 파일 하나를 불러옴
 # - manual_label은 사용하지 않음
 # - 전체 크롤링 리뷰에 같은 규칙 기반 필터를 적용해
 #   trust_score / trust_level / pred_label / trust_reasons를 산출함
@@ -35,7 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 # 전체 크롤링 파일명
 # 이 파일은 manual_label이 없어도 됩니다. 있어도 코드에서 무시합니다.
-INPUT_FILE = BASE_DIR / "naver_크롤링.csv"
+INPUT_FILE = BASE_DIR / "naver_크롤링_익명화.csv"
 
 # 결과 저장 폴더
 OUTPUT_DIR = BASE_DIR / "result_naver_crawling"

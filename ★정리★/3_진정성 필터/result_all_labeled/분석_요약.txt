@@ -2,7 +2,7 @@
 ======================================================================
 
 [입력 데이터]
-- 입력 파일: C:\Users\reply\Desktop\2026-1\수업_데이터마이닝\Project\★정리_최종\3_진정성 필터\all_라벨링.csv
+- 입력 파일: C:\Users\reply\Desktop\2026-1\수업_데이터마이닝\Project\★정리★\3_진정성 필터\all_라벨링_익명화.csv
 - 빈 리뷰 제거 후 전체 리뷰 수: 2491개
 - platform 컬럼이 있으면 원래 값을 유지하고, 없으면 unknown으로 처리함
 
@@ -48,26 +48,26 @@ manual_label
 1                   139.873               247.611        1.297      0.674   3.094               3.647               0.714          1.459                  0.406                   0.002                 0.008                   0.009              0.224                0.375                 0.430               0.271                  0.095                 0.576               0.338                  0.127                     0.552                   0.338                     2.273                   0.723                   0.537                 0.345                0.401              0.293               0.627                 0.627                       0.344                   0.023                      0.709                    0.000                           0.113                        0.632           3.629                  0.769        0.382    0.048                      0.070                         0.166                          0.224                         0.492                          0.366     0.849       3.542           1.546                  0.641            0.975       11.211         0.944
 
 [Random Forest Feature Importance TOP 20]
-review_length                     0.220993
-menu_count                        0.089577
-mixed_opinion_review              0.053986
-has_menu                          0.052482
-account_review_count              0.045051
-sentence_count                    0.041880
-account_avg_rating                0.034112
-short_but_specific_food_review    0.030426
-specific_review                   0.027687
-experience_context_count          0.026936
-short_generic_review              0.026427
-rating                            0.026333
-has_detailed_negative             0.025103
-detailed_negative_narrative       0.022492
-category_count                    0.022286
-generic_count                     0.021066
-positive_narrative                0.012466
-has_experience_context            0.012152
-mixed_opinion_count               0.010831
-has_photo                         0.010783
+review_length                     0.215615
+menu_count                        0.091665
+has_menu                          0.054745
+mixed_opinion_review              0.051497
+account_review_count              0.043831
+sentence_count                    0.039679
+short_but_specific_food_review    0.034222
+account_avg_rating                0.034046
+specific_review                   0.027794
+short_generic_review              0.027433
+experience_context_count          0.027243
+rating                            0.025895
+has_detailed_negative             0.024598
+detailed_negative_narrative       0.023061
+category_count                    0.022209
+generic_count                     0.020372
+positive_narrative                0.013476
+has_photo                         0.011214
+has_experience_context            0.011210
+visit_count                       0.010531
 
 [Trust Level 분포]
 trust_level  count

@@ -20,7 +20,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 # =========================================================
 # Labeled review trust-level analysis
-# - all_라벨링_4차.csv 파일 하나를 불러옴
+# - all_라벨링_익명화.csv 파일 하나를 불러옴
 # - manual_label과 pred_label을 비교해 정확도/F1/오분류를 평가함
 # - 규칙 기반 진정성 필터의 성능 점검용 코드
 # =========================================================
@@ -34,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 # 라벨링 파일명
 # 이 파일에는 반드시 manual_label 컬럼이 있어야 합니다.
-INPUT_FILE = BASE_DIR / "all_라벨링.csv"
+INPUT_FILE = BASE_DIR / "all_라벨링_익명화.csv"
 
 # 결과 저장 폴더
 OUTPUT_DIR = BASE_DIR / "result_all_labeled"

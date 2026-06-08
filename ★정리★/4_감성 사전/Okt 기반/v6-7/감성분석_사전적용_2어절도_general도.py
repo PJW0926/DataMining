@@ -9,9 +9,9 @@ from collections import defaultdict
 BASE_DIR = Path(__file__).resolve().parent
 
 review_file = BASE_DIR / "final_high_trust_reviews_pos.csv"
-dict_file = BASE_DIR / "통합_감성사전_v6_부사bigram정리.csv"
+dict_file = BASE_DIR / "통합_감성사전_v8_다같이수정_토큰보완.csv"
 
-output_file = BASE_DIR / "final_high_trust_reviews_category_sentiment.csv"
+output_file = BASE_DIR / "final_high_trust_reviews_category_sentiment_v8.csv"
 platform_output = BASE_DIR / "platform_category_sentiment_summary.csv"
 store_output = BASE_DIR / "store_category_sentiment_summary.csv"
 review_score_output = BASE_DIR / "review_sentiment_scores.csv"
