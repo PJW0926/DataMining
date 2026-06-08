@@ -6,8 +6,8 @@ from konlpy.tag import Okt
 # 1. 파일 불러오기
 # =========================
 
-input_file = "final_high_trust_reviews.csv"
-output_file = "final_high_trust_reviews_pos.csv"
+input_file = "kakao_crawling_all_filter_result.csv"
+output_file = "kakao_crawling_all_filter_token_only.csv"
 
 df = pd.read_csv(input_file, encoding="utf-8-sig")
 

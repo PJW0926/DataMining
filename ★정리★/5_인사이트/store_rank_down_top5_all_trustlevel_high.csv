@@ -1,0 +1,6 @@
+﻿store_name,total_review_count,high_trust_review_count,all_avg_sentiment_star,high_avg_sentiment_star,score_change,rank_all,rank_high_trust,rank_change,kakao_review_count,naver_review_count,kakao_total_rating_count,kakao_all_avg_rating,kakao_high_rating_count,kakao_high_avg_rating,kakao_rating_change
+홍대 육지,400,256,4.19,4.37,0.18,4,6,-2,200,200,200,4.4,91,3.93,-0.47
+장인닭갈비 홍대점,356,224,3.82,3.95,0.13,10,12,-2,162,194,162,4.15,136,4.3,0.15
+쭌곱창,368,180,4.12,4.36,0.24,6,7,-1,168,200,168,4.68,64,4.38,-0.3
+락희옥 마포본점,234,136,4.2,4.42,0.22,3,4,-1,39,195,39,3.82,20,3.6,-0.22
+금금 성수점,240,170,4.09,4.21,0.13,8,9,-1,40,200,40,3.62,21,3.24,-0.39

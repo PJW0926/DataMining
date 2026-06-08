@@ -9,13 +9,13 @@ from collections import defaultdict
 
 BASE_DIR = Path(__file__).resolve().parent
 
-review_file = BASE_DIR / "final_high_trust_reviews_pos.csv"
+review_file = BASE_DIR / "kakao_crawling_all_filter_token_only.csv"
 dict_file = BASE_DIR / "통합_감성사전_v9.csv"
 
-output_file = BASE_DIR / "final_high_trust_reviews_category_sentiment_v9_token_only.csv"
-platform_output = BASE_DIR / "platform_category_sentiment_summary_v9_token_only.csv"
-store_output = BASE_DIR / "store_category_sentiment_summary_v9_token_only.csv"
-review_score_output = BASE_DIR / "review_sentiment_scores_v9_token_only.csv"
+output_file = BASE_DIR / "kakao_crawling_all_filter_category_sentiment_v9_token_only.csv"
+platform_output = BASE_DIR / "kakao_crawling_all_filter_platform_category_sentiment_summary_v9_token_only.csv"
+store_output = BASE_DIR / "kakao_crawling_all_filter_store_category_sentiment_summary_v9_token_only.csv"
+review_score_output = BASE_DIR / "kakao_crawling_all_filter_review_sentiment_scores_v9_token_only.csv"
 
 # =========================================================
 # 2. CSV 안전하게 불러오기

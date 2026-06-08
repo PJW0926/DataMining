@@ -8,8 +8,8 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 
-input_file = BASE_DIR / "final_high_trust_reviews_category_sentiment_v9_token_only.csv"
-output_file = BASE_DIR / "final_high_trust_reviews_with_sentiment_star_v9_token_only_star_정규화수정.csv"
+input_file = BASE_DIR / "crawling_all_filter_category_sentiment_v9_token_only.csv"
+output_file = BASE_DIR / "crawling_all_filter_with_sentiment_star_v9_token_only_정규화수정.csv"
 
 df = pd.read_csv(input_file, encoding="utf-8-sig")
 
@@ -27,12 +27,12 @@ kakao_scores = df.loc[
     "category_total_score"
 ].dropna()
 
-# 극단값 영향을 줄이기 위해 1%~85% 분위수 사용
+# 극단값 영향을 줄이기 위해 1%~90% 분위수 사용
 score_min = kakao_scores.quantile(0.01)
-score_max = kakao_scores.quantile(0.85)
+score_max = kakao_scores.quantile(0.90)
  
 print("카카오 기준 감성점수 1%:", score_min)
-print("카카오 기준 감성점수 85%:", score_max)
+print("카카오 기준 감성점수 90%:", score_max)
 
 # =========================================================
 # 3. 감성점수 → 1~5점 별점 변환
@@ -76,7 +76,7 @@ store_star_summary["avg_original_rating"] = store_star_summary["avg_original_rat
 
 df.to_csv(output_file, index=False, encoding="utf-8-sig")
 
-store_output = BASE_DIR / "store_sentiment_star_summary.csv"
+store_output = BASE_DIR / "crawling_all_filter_store_sentiment_star_summary.csv"
 store_star_summary.to_csv(store_output, index=False, encoding="utf-8-sig")
 
 print("완료:", output_file)

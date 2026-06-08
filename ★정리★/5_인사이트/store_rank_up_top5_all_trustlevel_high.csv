@@ -1,0 +1,6 @@
+﻿store_name,total_review_count,high_trust_review_count,all_avg_sentiment_star,high_avg_sentiment_star,score_change,rank_all,rank_high_trust,rank_change,kakao_review_count,naver_review_count,kakao_total_rating_count,kakao_all_avg_rating,kakao_high_rating_count,kakao_high_avg_rating,kakao_rating_change
+조선시대,400,187,4.17,4.49,0.32,5,3,2,200,200,200,4.91,61,4.87,-0.04
+육산장 홍대본점,400,176,4.11,4.4,0.29,7,5,2,200,200,200,4.74,67,4.55,-0.18
+보끔당 성수점,226,127,4.07,4.29,0.22,9,8,1,26,200,26,4.23,13,4.08,-0.15
+능동미나리 성수지점,356,232,3.8,3.99,0.2,11,10,1,158,198,158,4.15,92,4.17,0.02
+원조 조박집 본관,141,92,3.65,3.77,0.12,15,14,1,37,104,37,4.08,22,3.91,-0.17

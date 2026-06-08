@@ -1,0 +1,6 @@
+﻿store_name,total_review_count,high_trust_review_count,all_avg_sentiment_star,high_avg_sentiment_star,score_change,rank_all,rank_high_trust,rank_change,kakao_review_count,kakao_total_rating_count,kakao_all_avg_rating,kakao_high_rating_count,kakao_high_avg_rating,kakao_rating_change
+조선시대,200,61,4.07,4.55,0.48,3,1,2,200,200,4.91,61,4.87,-0.04
+보끔당 성수점,26,13,3.92,4.23,0.31,6,4,2,26,26,4.23,13,4.08,-0.15
+금금 성수점,40,21,3.12,3.15,0.03,21,19,2,40,40,3.62,21,3.24,-0.39
+옥동식,130,97,3.39,3.45,0.06,15,14,1,130,130,3.5,97,3.41,-0.09
+일등식당,56,35,3.54,3.8,0.26,11,10,1,56,56,3.93,35,4.03,0.1
